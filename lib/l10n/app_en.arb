@@ -1,0 +1,131 @@
+{
+  "@@locale": "en",
+  "appTitle": "Escala Mais",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "climbingRoutes": "Climbing Routes",
+  "@climbingRoutes": {
+    "description": "Title for the routes list screen"
+  },
+  "noRoutesYet": "No routes yet",
+  "@noRoutesYet": {
+    "description": "Message shown when there are no routes"
+  },
+  "tapToCreateFirstRoute": "Tap the + button to create your first route",
+  "@tapToCreateFirstRoute": {
+    "description": "Hint message for creating first route"
+  },
+  "errorLoadingRoutes": "Error loading routes",
+  "@errorLoadingRoutes": {
+    "description": "Error message when routes fail to load"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Button text to retry an action"
+  },
+  "routeDetails": "Route Details",
+  "@routeDetails": {
+    "description": "Title for route detail screen"
+  },
+  "routeNotFound": "Route not found",
+  "@routeNotFound": {
+    "description": "Message when a route is not found"
+  },
+  "goBack": "Go Back",
+  "@goBack": {
+    "description": "Button to go back"
+  },
+  "imageNotFound": "Image not found",
+  "@imageNotFound": {
+    "description": "Message when image is not found"
+  },
+  "grade": "Grade: {grade}",
+  "@grade": {
+    "description": "Route difficulty grade",
+    "placeholders": {
+      "grade": {
+        "type": "String"
+      }
+    }
+  },
+  "created": "Created: {date}",
+  "@created": {
+    "description": "Creation date label",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "errorLoadingRoute": "Error loading route",
+  "@errorLoadingRoute": {
+    "description": "Error message when a route fails to load"
+  },
+  "createRoute": "Create Route",
+  "@createRoute": {
+    "description": "Title for create route screen"
+  },
+  "noImageSelected": "No image selected",
+  "@noImageSelected": {
+    "description": "Message when no image is selected"
+  },
+  "takePhoto": "Take Photo",
+  "@takePhoto": {
+    "description": "Option to take a photo with camera"
+  },
+  "chooseFromGallery": "Choose from Gallery",
+  "@chooseFromGallery": {
+    "description": "Option to choose image from gallery"
+  },
+  "pleaseSelectImage": "Please select an image",
+  "@pleaseSelectImage": {
+    "description": "Validation message for image selection"
+  },
+  "error": "Error: {message}",
+  "@error": {
+    "description": "Error message prefix",
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "routeCreatedSuccessfully": "Route created successfully!",
+  "@routeCreatedSuccessfully": {
+    "description": "Success message when route is created"
+  },
+  "tapToAddPhoto": "Tap to add photo",
+  "@tapToAddPhoto": {
+    "description": "Hint to add photo"
+  },
+  "cameraOrGallery": "Camera or Gallery",
+  "@cameraOrGallery": {
+    "description": "Hint for photo source options"
+  },
+  "routeName": "Route Name *",
+  "@routeName": {
+    "description": "Label for route name field"
+  },
+  "enterRouteName": "Enter route name",
+  "@enterRouteName": {
+    "description": "Hint for route name field"
+  },
+  "pleaseEnterRouteName": "Please enter a route name",
+  "@pleaseEnterRouteName": {
+    "description": "Validation message for route name"
+  },
+  "difficultyGradeOptional": "Difficulty Grade (Optional)",
+  "@difficultyGradeOptional": {
+    "description": "Label for difficulty grade field"
+  },
+  "gradeHint": "e.g., 5.10a, V4, 6a+",
+  "@gradeHint": {
+    "description": "Hint for grade field"
+  },
+  "saveRoute": "Save Route",
+  "@saveRoute": {
+    "description": "Button to save route"
+  }
+}
+
