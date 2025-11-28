@@ -57,6 +57,9 @@ dependencies:
   
   # SVG rendering
   flutter_svg: ^2.0.10+1
+  
+  # SQLite database
+  sqflite: ^2.3.3+2
 
 dev_dependencies:
   flutter_test:

@@ -239,7 +239,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
               const SizedBox(height: 16),
               // Grade dropdown
               DropdownButtonFormField<String>(
-                value: _selectedGrade,
+                initialValue: _selectedGrade,
                 decoration: InputDecoration(
                   labelText: l10n.difficultyGradeOptional,
                   hintText: l10n.gradeHint,
