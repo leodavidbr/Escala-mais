@@ -17,10 +17,27 @@ class RouteThumbnail extends StatelessWidget {
     this.fit = BoxFit.cover,
   });
 
+  bool _isAssetPath(String path) {
+    return path.startsWith('assets/');
+  }
+
   @override
   Widget build(BuildContext context) {
-    final file = File(imagePath);
+    if (imagePath.isEmpty) {
+      return _buildPlaceholder();
+    }
 
+    if (_isAssetPath(imagePath)) {
+      return Image.asset(
+        imagePath,
+        width: width,
+        height: height,
+        fit: fit,
+        errorBuilder: (context, error, stackTrace) => _buildPlaceholder(),
+      );
+    }
+
+    final file = File(imagePath);
     return FutureBuilder<bool>(
       future: file.exists(),
       builder: (context, snapshot) {

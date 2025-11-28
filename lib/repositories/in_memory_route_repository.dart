@@ -10,13 +10,34 @@ class InMemoryRouteRepository implements RouteRepository {
   final _streamController = StreamController<List<Route>>.broadcast();
 
   InMemoryRouteRepository() {
-    // Emit initial empty list
+    // Initialize with some mock routes so the UI shows data immediately.
+    _routes.addAll([
+      Route(
+        name: 'Paredão Leste',
+        grade: 'v3',
+        photoPath: 'assets/images/route1.jpeg',
+      ),
+      Route(
+        name: 'Via do Sol',
+        grade: 'v7',
+        photoPath: 'assets/images/route2.jpeg',
+      ),
+      Route(
+        name: 'Overhang Classic',
+        grade: 'v1',
+        photoPath: 'assets/images/route3.jpeg',
+      ),
+    ]);
+
+    _routes.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
     _streamController.add(List.unmodifiable(_routes));
   }
 
   @override
-  Stream<List<Route>> getAllRoutes() {
-    return _streamController.stream.map((routes) => List.unmodifiable(routes));
+  Stream<List<Route>> getAllRoutes() async* {
+    yield List.unmodifiable(_routes);
+    yield* _streamController.stream.map((routes) => List.unmodifiable(routes));
   }
 
   @override

@@ -1,9 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/route_providers.dart';
+import '../widgets/route_thumbnail.dart';
 
 /// Screen displaying detailed information about a single route.
 class RouteDetailScreen extends ConsumerWidget {
@@ -56,79 +56,15 @@ class RouteDetailScreen extends ConsumerWidget {
             );
           }
 
-          final file = File(route.photoPath);
-
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                FutureBuilder<bool>(
-                  future: file.exists(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Container(
-                        height: 300,
-                        color: Colors.grey[300],
-                        child: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    }
-
-                    if (snapshot.hasData && snapshot.data == true) {
-                      return Image.file(
-                        file,
-                        height: 400,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            height: 300,
-                            color: Colors.grey[300],
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.image_not_supported,
-                                    size: 48,
-                                    color: Colors.grey[600],
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    l10n.imageNotFound,
-                                    style: theme.textTheme.bodyMedium,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    }
-
-                    return Container(
-                      height: 300,
-                      color: Colors.grey[300],
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.image_not_supported,
-                              size: 48,
-                              color: Colors.grey[600],
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              l10n.imageNotFound,
-                              style: theme.textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                RouteThumbnail(
+                  imagePath: route.photoPath,
+                  height: 400,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16),

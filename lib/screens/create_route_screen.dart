@@ -15,14 +15,23 @@ class CreateRouteScreen extends ConsumerStatefulWidget {
 class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _gradeController = TextEditingController();
+  String? _selectedGrade;
   File? _selectedImage;
   bool _isSaving = false;
+
+  final List<String> _grades = [
+    'v1',
+    'v2',
+    'v3',
+    'v4',
+    'v5',
+    'v6',
+    'v7',
+  ];
 
   @override
   void dispose() {
     _nameController.dispose();
-    _gradeController.dispose();
     super.dispose();
   }
 
@@ -102,9 +111,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
       final createRouteNotifier = ref.read(createRouteProvider.notifier);
       await createRouteNotifier.createRoute(
         name: _nameController.text.trim(),
-        grade: _gradeController.text.trim().isEmpty
-            ? null
-            : _gradeController.text.trim(),
+        grade: _selectedGrade,
         photoPath: savedImagePath,
       );
 
@@ -230,15 +237,28 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
                 textCapitalization: TextCapitalization.words,
               ),
               const SizedBox(height: 16),
-              // Grade field
-              TextFormField(
-                controller: _gradeController,
+              // Grade dropdown
+              DropdownButtonFormField<String>(
+                value: _selectedGrade,
                 decoration: InputDecoration(
                   labelText: l10n.difficultyGradeOptional,
                   hintText: l10n.gradeHint,
                   prefixIcon: const Icon(Icons.trending_up),
                 ),
-                textCapitalization: TextCapitalization.none,
+                isExpanded: true,
+                menuMaxHeight: 300,
+                dropdownColor: Theme.of(context).colorScheme.surface,
+                items: _grades.map((grade) {
+                  return DropdownMenuItem<String>(
+                    value: grade,
+                    child: Text(grade),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGrade = value;
+                  });
+                },
               ),
               const SizedBox(height: 32),
               // Save button
