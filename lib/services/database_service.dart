@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import '../models/route.dart';
 
 /// Service for managing the SQLite database.
 class DatabaseService {
@@ -54,6 +55,43 @@ class DatabaseService {
     await db.execute('''
       CREATE INDEX idx_routes_created_at ON routes(createdAt DESC)
     ''');
+    
+    // Seed initial mock data
+    await _seedInitialData(db);
+  }
+
+  /// Seeds the database with initial mock routes.
+  static Future<void> _seedInitialData(Database db) async {
+    final mockRoutes = [
+      Route(
+        name: 'Paredão Leste',
+        grade: 'v3',
+        photoPath: 'assets/images/route1.jpeg',
+      ),
+      Route(
+        name: 'Via do Sol',
+        grade: 'v7',
+        photoPath: 'assets/images/route2.jpeg',
+      ),
+      Route(
+        name: 'Overhang Classic',
+        grade: 'v1',
+        photoPath: 'assets/images/route3.jpeg',
+      ),
+    ];
+
+    final batch = db.batch();
+    for (final route in mockRoutes) {
+      batch.insert('routes', {
+        'id': route.id,
+        'name': route.name,
+        'grade': route.grade,
+        'photoPath': route.photoPath,
+        'createdAt': route.createdAt.toIso8601String(),
+        'createdBy': route.createdBy,
+      });
+    }
+    await batch.commit(noResult: true);
   }
 
   /// Closes the database connection.
