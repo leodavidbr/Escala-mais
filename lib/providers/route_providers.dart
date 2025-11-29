@@ -1,14 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/route.dart';
 import '../repositories/route_repository.dart';
-import '../repositories/in_memory_route_repository.dart';
+import '../repositories/sqlite_route_repository.dart';
 import '../services/image_service.dart';
 import '../services/storage_service.dart';
 
 /// Provides the route repository instance.
-/// Currently uses in-memory storage, but can be easily swapped for SQLite.
+/// Uses SQLite for persistent storage.
 final routeRepositoryProvider = Provider<RouteRepository>((ref) {
-  return InMemoryRouteRepository();
+  final repository = SqliteRouteRepository();
+  // Dispose the repository when the provider is disposed
+  ref.onDispose(() {
+    repository.dispose();
+  });
+  return repository;
 });
 
 /// Provides the image service instance.
