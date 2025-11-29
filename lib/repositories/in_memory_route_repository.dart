@@ -1,16 +1,22 @@
+// repositories/in_memory_route_repository.dart
+
 import 'dart:async';
 import 'route_repository.dart';
 import '../models/route.dart';
 
 /// In-memory implementation of RouteRepository.
 /// Uses a StreamController to provide reactive updates.
-/// This implementation can be easily replaced with a SQLite implementation later.
 class InMemoryRouteRepository implements RouteRepository {
   final List<Route> _routes = [];
   final _streamController = StreamController<List<Route>>.broadcast();
 
   InMemoryRouteRepository() {
-    // Initialize with some mock routes so the UI shows data immediately.
+    _seedInitialData();
+  }
+
+  /// Seeds the repository with initial mock routes.
+  void _seedInitialData() {
+    _routes.clear();
     _routes.addAll([
       Route(
         name: 'Paredão Leste',
@@ -31,7 +37,9 @@ class InMemoryRouteRepository implements RouteRepository {
 
     _routes.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
-    _streamController.add(List.unmodifiable(_routes));
+    if (!_streamController.isClosed) {
+      _streamController.add(List.unmodifiable(_routes));
+    }
   }
 
   @override
@@ -69,9 +77,19 @@ class InMemoryRouteRepository implements RouteRepository {
     _streamController.add(List.unmodifiable(_routes));
   }
 
+  @override
+  Future<bool> resetDatabase() async {
+    try {
+      _seedInitialData();
+      _streamController.add(List.unmodifiable(_routes));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   /// Closes the stream controller. Should be called when the repository is disposed.
   void dispose() {
     _streamController.close();
   }
 }
-

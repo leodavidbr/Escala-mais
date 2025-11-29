@@ -1,3 +1,4 @@
+import 'package:escala_mais/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
@@ -18,6 +19,17 @@ class RouteListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.climbingRoutes),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: routesAsync.when(
         data: (routes) {
@@ -29,27 +41,27 @@ class RouteListScreen extends ConsumerWidget {
                   Icon(
                     Icons.terrain,
                     size: 64,
-                    color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: 0.5),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     l10n.noRoutesYet,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.6),
-                        ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     l10n.tapToCreateFirstRoute,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withValues(alpha: 0.6),
-                        ),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withValues(alpha: 0.6),
+                    ),
                   ),
                 ],
               ),
@@ -71,7 +83,8 @@ class RouteListScreen extends ConsumerWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RouteDetailScreen(routeId: route.id),
+                        builder: (context) =>
+                            RouteDetailScreen(routeId: route.id),
                       ),
                     );
                   },
@@ -80,9 +93,7 @@ class RouteListScreen extends ConsumerWidget {
             ),
           );
         },
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -118,9 +129,7 @@ class RouteListScreen extends ConsumerWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => const CreateRouteScreen(),
-            ),
+            MaterialPageRoute(builder: (context) => const CreateRouteScreen()),
           );
         },
         child: const Icon(Icons.add),
@@ -128,4 +137,3 @@ class RouteListScreen extends ConsumerWidget {
     );
   }
 }
-

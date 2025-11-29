@@ -18,5 +18,8 @@ abstract class RouteRepository {
   /// Deletes a route by its ID.
   /// Throws an exception if the route doesn't exist or cannot be deleted.
   Future<void> deleteRoute(String id);
-}
 
+  /// Deletes and recreates the database, returning it to the initial state.
+  /// Returns true on success, false otherwise.
+  Future<bool> resetDatabase();
+}

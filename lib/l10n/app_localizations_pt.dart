@@ -98,6 +98,51 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get saveRoute => 'Salvar Rota';
+
+  @override
+  String get settings => 'Configurações';
+
+  @override
+  String get darkModeTitle => 'Modo Escuro';
+
+  @override
+  String get darkModeSubtitle => 'Alternar o tema do aplicativo';
+
+  @override
+  String get resetDatabaseTitle => 'Redefinir Banco de Dados';
+
+  @override
+  String get resetDatabaseSubtitle =>
+      'Apaga todas as rotas salvas e restaura os dados iniciais';
+
+  @override
+  String get termsOfUseTitle => 'Termos de Uso';
+
+  @override
+  String get termsOfUseSubtitle =>
+      'Visualizar os termos e políticas do aplicativo';
+
+  @override
+  String get confirmResetTitle => 'Confirmar Redefinição';
+
+  @override
+  String get confirmResetMessage =>
+      'Tem certeza que deseja apagar todas as rotas e reverter para o estado inicial?';
+
+  @override
+  String get cancelButton => 'Cancelar';
+
+  @override
+  String get resetButton => 'Redefinir';
+
+  @override
+  String get closeButton => 'Fechar';
+
+  @override
+  String get resetSuccess => 'Banco de dados redefinido com sucesso!';
+
+  @override
+  String get resetFailure => 'Falha ao redefinir o banco de dados.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -194,4 +239,49 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get saveRoute => 'Salvar Rota';
+
+  @override
+  String get settings => 'Configurações';
+
+  @override
+  String get darkModeTitle => 'Modo Escuro';
+
+  @override
+  String get darkModeSubtitle => 'Alternar o tema do aplicativo';
+
+  @override
+  String get resetDatabaseTitle => 'Redefinir Banco de Dados';
+
+  @override
+  String get resetDatabaseSubtitle =>
+      'Apaga todas as rotas salvas e restaura os dados iniciais';
+
+  @override
+  String get termsOfUseTitle => 'Termos de Uso';
+
+  @override
+  String get termsOfUseSubtitle =>
+      'Visualizar os termos e políticas do aplicativo';
+
+  @override
+  String get confirmResetTitle => 'Confirmar Redefinição';
+
+  @override
+  String get confirmResetMessage =>
+      'Tem certeza que deseja apagar todas as rotas e reverter para o estado inicial?';
+
+  @override
+  String get cancelButton => 'Cancelar';
+
+  @override
+  String get resetButton => 'Redefinir';
+
+  @override
+  String get closeButton => 'Fechar';
+
+  @override
+  String get resetSuccess => 'Banco de dados redefinido com sucesso!';
+
+  @override
+  String get resetFailure => 'Falha ao redefinir o banco de dados.';
 }

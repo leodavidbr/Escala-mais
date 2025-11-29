@@ -98,4 +98,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveRoute => 'Save Route';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get darkModeTitle => 'Dark Mode';
+
+  @override
+  String get darkModeSubtitle => 'Toggle application theme';
+
+  @override
+  String get resetDatabaseTitle => 'Reset Database';
+
+  @override
+  String get resetDatabaseSubtitle =>
+      'Delete all saved routes and restore initial data';
+
+  @override
+  String get termsOfUseTitle => 'Terms of Use';
+
+  @override
+  String get termsOfUseSubtitle => 'View application terms and policies';
+
+  @override
+  String get confirmResetTitle => 'Confirm Reset';
+
+  @override
+  String get confirmResetMessage =>
+      'Are you sure you want to delete all routes and revert to the initial state?';
+
+  @override
+  String get cancelButton => 'Cancel';
+
+  @override
+  String get resetButton => 'Reset';
+
+  @override
+  String get closeButton => 'Close';
+
+  @override
+  String get resetSuccess => 'Database successfully reset!';
+
+  @override
+  String get resetFailure => 'Failed to reset database.';
 }
