@@ -83,13 +83,13 @@ class RouteDetailScreen extends ConsumerWidget {
                           children: [
                             Icon(
                               Icons.trending_up,
-                              color: theme.colorScheme.secondary,
+                              color: theme.colorScheme.primary,
                             ),
                             const SizedBox(width: 8),
                             Text(
                               l10n.grade(route.grade!),
                               style: theme.textTheme.titleMedium?.copyWith(
-                                color: theme.colorScheme.secondary,
+                                color: theme.colorScheme.primary,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),

@@ -86,13 +86,13 @@ class RouteCard extends StatelessWidget {
                         Icon(
                           Icons.trending_up,
                           size: 16,
-                          color: theme.colorScheme.secondary,
+                          color: theme.colorScheme.primary,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           route.grade!,
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.secondary,
+                            color: theme.colorScheme.primary,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
