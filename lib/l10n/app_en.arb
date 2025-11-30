@@ -206,6 +206,25 @@
   "saveGym": "Save Gym",
   "@saveGym": { "description": "Button to save gym" },
   "gymCreatedSuccessfully": "Gym registered successfully!",
-  "@gymCreatedSuccessfully": { "description": "Success message when gym is created" }
+  "@gymCreatedSuccessfully": { "description": "Success message when gym is created" },
+  "deleteRoute": "Delete Route",
+  "@deleteRoute": { "description": "Option to delete a route" },
+  "confirmDeleteRouteTitle": "Confirm Deletion",
+  "@confirmDeleteRouteTitle": { "description": "Title for route deletion confirmation dialog" },
+  "confirmDeleteRouteMessage": "Are you sure you want to delete the route '{routeName}'? This action cannot be undone.",
+  "@confirmDeleteRouteMessage": {
+    "description": "Body message for route deletion confirmation dialog",
+    "placeholders": {
+      "routeName": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteButton": "Delete",
+  "@deleteButton": { "description": "Delete button text in dialogs" },
+  "routeDeletedSuccessfully": "Route deleted successfully!",
+  "@routeDeletedSuccessfully": { "description": "Success message after route deletion" },
+  "errorDeletingRoute": "Error deleting route",
+  "@errorDeletingRoute": { "description": "Error message when route deletion fails" }
 }
 

@@ -422,6 +422,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Gym registered successfully!'**
   String get gymCreatedSuccessfully;
+
+  /// Option to delete a route
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Route'**
+  String get deleteRoute;
+
+  /// Title for route deletion confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get confirmDeleteRouteTitle;
+
+  /// Body message for route deletion confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the route \'{routeName}\'? This action cannot be undone.'**
+  String confirmDeleteRouteMessage(String routeName);
+
+  /// Delete button text in dialogs
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteButton;
+
+  /// Success message after route deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Route deleted successfully!'**
+  String get routeDeletedSuccessfully;
+
+  /// Error message when route deletion fails
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting route'**
+  String get errorDeletingRoute;
 }
 
 class _AppLocalizationsDelegate

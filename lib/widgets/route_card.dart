@@ -7,11 +7,13 @@ import 'route_thumbnail.dart';
 class RouteCard extends StatelessWidget {
   final models.Route route;
   final VoidCallback onTap;
+  final VoidCallback? onDelete;
 
   const RouteCard({
     super.key,
     required this.route,
     required this.onTap,
+    this.onDelete,
   });
 
   @override
@@ -31,13 +33,38 @@ class RouteCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-              child: RouteThumbnail(
-                imagePath: route.photoPath,
-                height: 200,
-                width: double.infinity,
-              ),
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                  child: RouteThumbnail(
+                    imagePath: route.photoPath,
+                    height: 200,
+                    width: double.infinity,
+                  ),
+                ),
+                if (onDelete != null)
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Material(
+                      color: theme.colorScheme.errorContainer,
+                      borderRadius: BorderRadius.circular(20),
+                      child: InkWell(
+                        onTap: onDelete,
+                        borderRadius: BorderRadius.circular(20),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Icon(
+                            Icons.delete_outline,
+                            size: 20,
+                            color: theme.colorScheme.onErrorContainer,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(16),

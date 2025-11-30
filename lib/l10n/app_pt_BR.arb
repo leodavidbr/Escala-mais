@@ -54,6 +54,12 @@
   "gymLocationOptional": "Localização (Opcional)",
   "enterGymLocation": "Ex.: São Paulo, SP",
   "saveGym": "Salvar Academia",
-  "gymCreatedSuccessfully": "Academia cadastrada com sucesso!"
+  "gymCreatedSuccessfully": "Academia cadastrada com sucesso!",
+  "deleteRoute": "Excluir Rota",
+  "confirmDeleteRouteTitle": "Confirmar Exclusão",
+  "confirmDeleteRouteMessage": "Tem certeza que deseja excluir a rota '{routeName}'? Esta ação não pode ser desfeita.",
+  "deleteButton": "Excluir",
+  "routeDeletedSuccessfully": "Rota excluída com sucesso!",
+  "errorDeletingRoute": "Erro ao excluir rota"
 }
 

@@ -172,3 +172,46 @@ final createGymProvider =
     StateNotifierProvider<CreateGymNotifier, CreateGymState>((ref) {
       return CreateGymNotifier(ref);
     });
+
+class DeleteRouteState {
+  final bool isLoading;
+  final String? error;
+  final bool isDeleted;
+
+  DeleteRouteState({this.isLoading = false, this.error, this.isDeleted = false});
+
+  DeleteRouteState copyWith({bool? isLoading, String? error, bool? isDeleted}) {
+    return DeleteRouteState(
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
+}
+
+class DeleteRouteNotifier extends StateNotifier<DeleteRouteState> {
+  DeleteRouteNotifier(this.ref) : super(DeleteRouteState());
+
+  final Ref ref;
+
+  Future<void> deleteRoute(String routeId) async {
+    state = state.copyWith(isLoading: true, error: null, isDeleted: false);
+
+    try {
+      final repository = ref.read(routeRepositoryProvider);
+      await repository.deleteRoute(routeId);
+      state = state.copyWith(isLoading: false, isDeleted: true);
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
+  }
+
+  void reset() {
+    state = DeleteRouteState();
+  }
+}
+
+final deleteRouteProvider =
+    StateNotifierProvider<DeleteRouteNotifier, DeleteRouteState>((ref) {
+      return DeleteRouteNotifier(ref);
+    });
