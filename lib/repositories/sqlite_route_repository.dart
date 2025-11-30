@@ -21,7 +21,7 @@ class SqliteRouteRepository implements RouteRepository {
       await _initCompleter.future;
       return;
     }
-    
+
     try {
       // Ensure database is initialized
       await DatabaseService.database;
@@ -40,10 +40,7 @@ class SqliteRouteRepository implements RouteRepository {
   /// Loads all routes from the database.
   Future<List<Route>> _loadAllRoutes() async {
     final db = await DatabaseService.database;
-    final maps = await db.query(
-      'routes',
-      orderBy: 'createdAt DESC',
-    );
+    final maps = await db.query('routes', orderBy: 'createdAt DESC');
 
     return maps.map((map) => _routeFromMap(map)).toList();
   }
@@ -60,10 +57,7 @@ class SqliteRouteRepository implements RouteRepository {
         createdBy: map['createdBy'] as String?,
       );
     } catch (e) {
-      throw FormatException(
-        'Failed to parse route from database: $e',
-        map,
-      );
+      throw FormatException('Failed to parse route from database: $e', map);
     }
   }
 
@@ -86,7 +80,7 @@ class SqliteRouteRepository implements RouteRepository {
       // Emit current state immediately
       final routes = await _loadAllRoutes();
       yield routes;
-      
+
       // Then listen for updates from the stream controller
       yield* _streamController.stream;
     } catch (e) {
@@ -170,9 +164,21 @@ class SqliteRouteRepository implements RouteRepository {
     }
   }
 
+  @override
+  Future<bool> resetDatabase() async {
+    try {
+      await DatabaseService.resetDatabaseFile();
+      final newRoutes = await _loadAllRoutes();
+      _streamController.add(newRoutes);
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   /// Closes the stream controller. Should be called when the repository is disposed.
   void dispose() {
     _streamController.close();
   }
 }
-

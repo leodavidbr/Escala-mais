@@ -27,6 +27,20 @@
   "pleaseEnterRouteName": "Por favor, digite um nome para a rota",
   "difficultyGradeOptional": "Grau de Dificuldade (Opcional)",
   "gradeHint": "ex.: 5.10a, V4, 6a+",
-  "saveRoute": "Salvar Rota"
+  "saveRoute": "Salvar Rota",
+  "settings": "Configurações",
+  "darkModeTitle": "Modo Escuro",
+  "darkModeSubtitle": "Alternar o tema do aplicativo",
+  "resetDatabaseTitle": "Redefinir Banco de Dados",
+  "resetDatabaseSubtitle": "Apaga todas as rotas salvas e restaura os dados iniciais",
+  "termsOfUseTitle": "Termos de Uso",
+  "termsOfUseSubtitle": "Visualizar os termos e políticas do aplicativo",
+  "confirmResetTitle": "Confirmar Redefinição",
+  "confirmResetMessage": "Tem certeza que deseja apagar todas as rotas e reverter para o estado inicial?",
+  "cancelButton": "Cancelar",
+  "resetButton": "Redefinir",
+  "closeButton": "Fechar",
+  "resetSuccess": "Banco de dados redefinido com sucesso!",
+  "resetFailure": "Falha ao redefinir o banco de dados."
 }
 

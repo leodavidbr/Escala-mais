@@ -266,6 +266,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save Route'**
   String get saveRoute;
+
+  /// Title for the settings screen
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// Title for dark mode setting
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get darkModeTitle;
+
+  /// Subtitle for dark mode setting
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle application theme'**
+  String get darkModeSubtitle;
+
+  /// Title for reset database option
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Database'**
+  String get resetDatabaseTitle;
+
+  /// Subtitle for reset database option
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all saved routes and restore initial data'**
+  String get resetDatabaseSubtitle;
+
+  /// Title for terms of use option
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUseTitle;
+
+  /// Subtitle for terms of use option
+  ///
+  /// In en, this message translates to:
+  /// **'View application terms and policies'**
+  String get termsOfUseSubtitle;
+
+  /// Title for database reset confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Reset'**
+  String get confirmResetTitle;
+
+  /// Body message for database reset confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete all routes and revert to the initial state?'**
+  String get confirmResetMessage;
+
+  /// Cancel button text in dialogs
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButton;
+
+  /// Reset button text in dialogs
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetButton;
+
+  /// Close button text in dialogs
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get closeButton;
+
+  /// Success message after database reset
+  ///
+  /// In en, this message translates to:
+  /// **'Database successfully reset!'**
+  String get resetSuccess;
+
+  /// Failure message after database reset
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset database.'**
+  String get resetFailure;
 }
 
 class _AppLocalizationsDelegate

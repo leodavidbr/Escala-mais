@@ -7,7 +7,7 @@ import '../models/route.dart';
 class DatabaseService {
   static const String _databaseName = 'escala_mais.db';
   static const int _databaseVersion = 1;
-  
+
   static Database? _database;
 
   /// Gets the database instance, creating it if necessary.
@@ -15,6 +15,22 @@ class DatabaseService {
     if (_database != null) return _database!;
     _database = await _initDatabase();
     return _database!;
+  }
+
+  /// Deletes the database file and reinitializes it.
+  static Future<void> resetDatabaseFile() async {
+    await close();
+    String path;
+    try {
+      final directory = await getDatabasesPath();
+      path = join(directory, _databaseName);
+    } catch (e) {
+      final documentsDirectory = await getApplicationDocumentsDirectory();
+      path = join(documentsDirectory.path, _databaseName);
+    }
+
+    await deleteDatabase(path);
+    _database = await _initDatabase();
   }
 
   /// Initializes the database and creates tables if they don't exist.
@@ -50,12 +66,12 @@ class DatabaseService {
         createdBy TEXT
       )
     ''');
-    
+
     // Create index on createdAt for faster sorting
     await db.execute('''
       CREATE INDEX idx_routes_created_at ON routes(createdAt DESC)
     ''');
-    
+
     // Seed initial mock data
     await _seedInitialData(db);
   }
@@ -102,4 +118,3 @@ class DatabaseService {
     }
   }
 }
-

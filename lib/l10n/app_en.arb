@@ -126,6 +126,62 @@
   "saveRoute": "Save Route",
   "@saveRoute": {
     "description": "Button to save route"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Title for the settings screen"
+  },
+  "darkModeTitle": "Dark Mode",
+  "@darkModeTitle": {
+    "description": "Title for dark mode setting"
+  },
+  "darkModeSubtitle": "Toggle application theme",
+  "@darkModeSubtitle": {
+    "description": "Subtitle for dark mode setting"
+  },
+  "resetDatabaseTitle": "Reset Database",
+  "@resetDatabaseTitle": {
+    "description": "Title for reset database option"
+  },
+  "resetDatabaseSubtitle": "Delete all saved routes and restore initial data",
+  "@resetDatabaseSubtitle": {
+    "description": "Subtitle for reset database option"
+  },
+  "termsOfUseTitle": "Terms of Use",
+  "@termsOfUseTitle": {
+    "description": "Title for terms of use option"
+  },
+  "termsOfUseSubtitle": "View application terms and policies",
+  "@termsOfUseSubtitle": {
+    "description": "Subtitle for terms of use option"
+  },
+  "confirmResetTitle": "Confirm Reset",
+  "@confirmResetTitle": {
+    "description": "Title for database reset confirmation dialog"
+  },
+  "confirmResetMessage": "Are you sure you want to delete all routes and revert to the initial state?",
+  "@confirmResetMessage": {
+    "description": "Body message for database reset confirmation dialog"
+  },
+  "cancelButton": "Cancel",
+  "@cancelButton": {
+    "description": "Cancel button text in dialogs"
+  },
+  "resetButton": "Reset",
+  "@resetButton": {
+    "description": "Reset button text in dialogs"
+  },
+  "closeButton": "Close",
+  "@closeButton": {
+    "description": "Close button text in dialogs"
+  },
+  "resetSuccess": "Database successfully reset!",
+  "@resetSuccess": {
+    "description": "Success message after database reset"
+  },
+  "resetFailure": "Failed to reset database.",
+  "@resetFailure": {
+    "description": "Failure message after database reset"
   }
 }
 
