@@ -172,3 +172,89 @@ final createGymProvider =
     StateNotifierProvider<CreateGymNotifier, CreateGymState>((ref) {
       return CreateGymNotifier(ref);
     });
+
+class DeleteRouteState {
+  final bool isLoading;
+  final String? error;
+  final bool isDeleted;
+
+  DeleteRouteState({this.isLoading = false, this.error, this.isDeleted = false});
+
+  DeleteRouteState copyWith({bool? isLoading, String? error, bool? isDeleted}) {
+    return DeleteRouteState(
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
+}
+
+class DeleteRouteNotifier extends StateNotifier<DeleteRouteState> {
+  DeleteRouteNotifier(this.ref) : super(DeleteRouteState());
+
+  final Ref ref;
+
+  Future<void> deleteRoute(String routeId) async {
+    state = state.copyWith(isLoading: true, error: null, isDeleted: false);
+
+    try {
+      final repository = ref.read(routeRepositoryProvider);
+      await repository.deleteRoute(routeId);
+      state = state.copyWith(isLoading: false, isDeleted: true);
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
+  }
+
+  void reset() {
+    state = DeleteRouteState();
+  }
+}
+
+final deleteRouteProvider =
+    StateNotifierProvider<DeleteRouteNotifier, DeleteRouteState>((ref) {
+      return DeleteRouteNotifier(ref);
+    });
+
+class DeleteGymState {
+  final bool isLoading;
+  final String? error;
+  final bool isDeleted;
+
+  DeleteGymState({this.isLoading = false, this.error, this.isDeleted = false});
+
+  DeleteGymState copyWith({bool? isLoading, String? error, bool? isDeleted}) {
+    return DeleteGymState(
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
+}
+
+class DeleteGymNotifier extends StateNotifier<DeleteGymState> {
+  DeleteGymNotifier(this.ref) : super(DeleteGymState());
+
+  final Ref ref;
+
+  Future<void> deleteGym(String gymId) async {
+    state = state.copyWith(isLoading: true, error: null, isDeleted: false);
+
+    try {
+      final repository = ref.read(gymRepositoryProvider);
+      await repository.deleteGym(gymId);
+      state = state.copyWith(isLoading: false, isDeleted: true);
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
+  }
+
+  void reset() {
+    state = DeleteGymState();
+  }
+}
+
+final deleteGymProvider =
+    StateNotifierProvider<DeleteGymNotifier, DeleteGymState>((ref) {
+      return DeleteGymNotifier(ref);
+    });

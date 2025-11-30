@@ -69,17 +69,46 @@ class GymRouteListScreen extends ConsumerWidget {
               itemCount: routes.length,
               itemBuilder: (context, index) {
                 final route = routes[index];
-                return RouteCard(
-                  route: route,
-                  onTap: () {
-                    Navigator.push(
+                return Dismissible(
+                  key: Key(route.id),
+                  direction: DismissDirection.endToStart,
+                  confirmDismiss: (direction) async {
+                    return await _showDeleteConfirmation(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            RouteDetailScreen(routeId: route.id),
-                      ),
+                      route.name,
+                      route.id,
+                      ref,
                     );
                   },
+                  background: Container(
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20),
+                    color: Theme.of(context).colorScheme.error,
+                    child: Icon(
+                      Icons.delete,
+                      color: Theme.of(context).colorScheme.onError,
+                    ),
+                  ),
+                  child: RouteCard(
+                    route: route,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              RouteDetailScreen(routeId: route.id),
+                        ),
+                      );
+                    },
+                    onDelete: () async {
+                      await _showDeleteConfirmation(
+                        context,
+                        route.name,
+                        route.id,
+                        ref,
+                      );
+                    },
+                  ),
                 );
               },
             ),
@@ -129,5 +158,65 @@ class GymRouteListScreen extends ConsumerWidget {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  Future<bool> _showDeleteConfirmation(
+    BuildContext context,
+    String routeName,
+    String routeId,
+    WidgetRef ref,
+  ) async {
+    final l10n = AppLocalizations.of(context)!;
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(l10n.confirmDeleteRouteTitle),
+          content: Text(
+            l10n.confirmDeleteRouteMessage(routeName),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(l10n.cancelButton),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              child: Text(l10n.deleteButton),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (result == true) {
+      try {
+        await ref.read(deleteRouteProvider.notifier).deleteRoute(routeId);
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.routeDeletedSuccessfully),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+        return true;
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('${l10n.errorDeletingRoute}: $e'),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+          );
+        }
+        return false;
+      }
+    }
+
+    return false;
   }
 }

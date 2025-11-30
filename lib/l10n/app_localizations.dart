@@ -422,6 +422,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Gym registered successfully!'**
   String get gymCreatedSuccessfully;
+
+  /// Option to delete a route
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Route'**
+  String get deleteRoute;
+
+  /// Title for route deletion confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get confirmDeleteRouteTitle;
+
+  /// Body message for route deletion confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the route \'{routeName}\'? This action cannot be undone.'**
+  String confirmDeleteRouteMessage(String routeName);
+
+  /// Delete button text in dialogs
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteButton;
+
+  /// Success message after route deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Route deleted successfully!'**
+  String get routeDeletedSuccessfully;
+
+  /// Error message when route deletion fails
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting route'**
+  String get errorDeletingRoute;
+
+  /// Option to delete a gym
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Gym'**
+  String get deleteGym;
+
+  /// Title for gym deletion confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get confirmDeleteGymTitle;
+
+  /// Body message for gym deletion confirmation dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the gym \'{gymName}\' and all its routes? This action cannot be undone.'**
+  String confirmDeleteGymMessage(String gymName);
+
+  /// Success message after gym deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Gym deleted successfully!'**
+  String get gymDeletedSuccessfully;
+
+  /// Error message when gym deletion fails
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting gym'**
+  String get errorDeletingGym;
 }
 
 class _AppLocalizationsDelegate
