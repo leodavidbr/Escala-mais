@@ -104,13 +104,13 @@ class RouteCard extends StatelessWidget {
                       Icon(
                         Icons.calendar_today,
                         size: 14,
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: theme.colorScheme.onSurface,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         dateFormat.format(route.createdAt),
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                          color: theme.colorScheme.onSurface,
                         ),
                       ),
                     ],

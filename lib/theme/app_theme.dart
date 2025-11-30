@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
 
+/// Extension to access custom colors from Theme
+extension AppColors on ColorScheme {
+  Color get success => brightness == Brightness.light
+      ? AppTheme.successColor
+      : AppTheme.successColorDark;
+
+  Color get placeholder => brightness == Brightness.light
+      ? AppTheme.greyLight
+      : AppTheme.greyDark;
+
+  Color get placeholderIcon => brightness == Brightness.light
+      ? AppTheme.greyDark
+      : AppTheme.greyMedium;
+}
+
 /// App theme configuration with Material 3 design.
 class AppTheme {
   /// Primary color scheme inspired by climbing/outdoor theme.
@@ -8,6 +23,18 @@ class AppTheme {
   static const Color accentColor = Color(0xFFCD853F); // Peru
   static const Color backgroundColor = Color(0xFFFAFAFA);
   static const Color surfaceColor = Colors.white;
+  
+  // Semantic colors
+  static const Color successColor = Color(0xFF388E3C); // Material green 700
+  static const Color successColorDark = Color(0xFF66BB6A); // Material green 400
+  
+  // Neutral colors
+  static const Color greyLight = Color(0xFFEEEEEE); // Grey 200
+  static const Color greyMedium = Color(0xFFBDBDBD); // Grey 400
+  static const Color greyDark = Color(0xFF757575); // Grey 600
+  
+  // Dark mode background
+  static const Color darkBackground = Color(0xFF121212);
 
   /// Creates the light theme for the app.
   static ThemeData get lightTheme {
@@ -56,15 +83,17 @@ class AppTheme {
     final colorScheme = ColorScheme.fromSeed(
       seedColor: primaryColor,
       brightness: Brightness.dark,
-      primary: primaryColor,
-      secondary: secondaryColor,
+      primary: secondaryColor,
+      secondary: primaryColor,
       tertiary: accentColor,
+      // surface: Color.fromARGB(255, 28, 20, 0)
+      surface: Color.fromARGB(255, 34, 28, 20)
     );
 
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: const Color(0xFF121212),
+      scaffoldBackgroundColor: darkBackground,
       cardTheme: CardThemeData(
         elevation: 2,
         shape: RoundedRectangleBorder(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
 import '../providers/route_providers.dart';
 import '../theme/theme_mode_notifier.dart';
 import '../theme/locale_notifier.dart';
@@ -61,7 +62,10 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             title: Text(l10n.resetDatabaseTitle),
             subtitle: Text(l10n.resetDatabaseSubtitle),
-            leading: const Icon(Icons.delete_forever, color: Colors.red),
+            leading: Icon(
+              Icons.delete_forever,
+              color: Theme.of(context).colorScheme.error,
+            ),
             onTap: () => _showResetDialog(context, ref, l10n),
           ),
           const Divider(),
@@ -160,11 +164,11 @@ class SettingsScreen extends ConsumerWidget {
               Navigator.of(ctx).pop();
               await _resetData(context, ref, l10n);
             },
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: Text(
-              l10n.resetButton,
-              style: const TextStyle(color: Colors.white),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
             ),
+            child: Text(l10n.resetButton),
           ),
         ],
       ),
@@ -188,12 +192,15 @@ class SettingsScreen extends ConsumerWidget {
       scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text(l10n.resetSuccess),
-          backgroundColor: Colors.green,
+          backgroundColor: Theme.of(context).colorScheme.success,
         ),
       );
     } else {
       scaffoldMessenger.showSnackBar(
-        SnackBar(content: Text(l10n.resetFailure), backgroundColor: Colors.red),
+        SnackBar(
+          content: Text(l10n.resetFailure),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
       );
     }
   }

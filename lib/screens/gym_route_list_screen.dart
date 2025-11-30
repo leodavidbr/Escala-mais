@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
 import '../providers/route_providers.dart';
 import '../widgets/route_card.dart';
 import 'create_route_screen.dart';
@@ -199,7 +200,7 @@ class GymRouteListScreen extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(l10n.routeDeletedSuccessfully),
-              backgroundColor: Colors.green,
+              backgroundColor: Theme.of(context).colorScheme.success,
             ),
           );
         }

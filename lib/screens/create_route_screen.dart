@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
 import '../providers/route_providers.dart';
 
 /// Screen for creating a new climbing route.
@@ -85,7 +86,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(l10n.pleaseSelectImage),
-          backgroundColor: Colors.red,
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
       return;
@@ -114,7 +115,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(l10n.error(state.error!)),
-              backgroundColor: Colors.red,
+              backgroundColor: Theme.of(context).colorScheme.error,
             ),
           );
         } else {
@@ -122,7 +123,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(l10n.routeCreatedSuccessfully),
-              backgroundColor: Colors.green,
+              backgroundColor: Theme.of(context).colorScheme.success,
             ),
           );
           createRouteNotifier.reset();
@@ -134,7 +135,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.error(e.toString())),
-            backgroundColor: Colors.red,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
       }
@@ -167,10 +168,10 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
                 child: Container(
                   height: 300,
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: theme.colorScheme.placeholder,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: Colors.grey[400]!,
+                      color: theme.colorScheme.placeholderIcon.withValues(alpha: 0.5),
                       width: 2,
                       style: BorderStyle.solid,
                     ),
@@ -186,20 +187,20 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
                             Icon(
                               Icons.add_photo_alternate,
                               size: 64,
-                              color: Colors.grey[600],
+                              color: theme.colorScheme.placeholderIcon,
                             ),
                             const SizedBox(height: 16),
                             Text(
                               l10n.tapToAddPhoto,
                               style: theme.textTheme.titleMedium?.copyWith(
-                                color: Colors.grey[600],
+                                color: theme.colorScheme.placeholderIcon,
                               ),
                             ),
                             const SizedBox(height: 8),
                             Text(
                               l10n.cameraOrGallery,
                               style: theme.textTheme.bodySmall?.copyWith(
-                                color: Colors.grey[500],
+                                color: theme.colorScheme.placeholderIcon.withValues(alpha: 0.8),
                               ),
                             ),
                           ],

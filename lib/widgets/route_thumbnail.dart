@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 /// Widget for displaying a route thumbnail image.
 /// Shows a placeholder if the image doesn't exist or fails to load.
@@ -63,14 +64,16 @@ class RouteThumbnail extends StatelessWidget {
   }
 
   Widget _buildPlaceholder() {
-    return Container(
-      width: width,
-      height: height,
-      color: Colors.grey[300],
-      child: Icon(
-        Icons.image_not_supported,
-        color: Colors.grey[600],
-        size: (height ?? 100) * 0.3,
+    return Builder(
+      builder: (context) => Container(
+        width: width,
+        height: height,
+        color: Theme.of(context).colorScheme.placeholder,
+        child: Icon(
+          Icons.image_not_supported,
+          color: Theme.of(context).colorScheme.placeholderIcon,
+          size: (height ?? 100) * 0.3,
+        ),
       ),
     );
   }
