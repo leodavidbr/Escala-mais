@@ -235,6 +235,58 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get portuguese => 'Português (Brasil)';
+
+  @override
+  String get addressDetails => 'Detalhes do Endereço';
+
+  @override
+  String get cepLabel => 'CEP *';
+
+  @override
+  String get validCepRequired => 'CEP inválido';
+
+  @override
+  String get searchCep => 'Buscar';
+
+  @override
+  String get cepNotFound => 'CEP não encontrado ou inválido.';
+
+  @override
+  String get streetLabel => 'Logradouro';
+
+  @override
+  String get streetRequired => 'Rua é obrigatória';
+
+  @override
+  String get numberLabel => 'Número *';
+
+  @override
+  String get numberRequired => 'Número é obrigatório';
+
+  @override
+  String get complementLabel => 'Complemento';
+
+  @override
+  String get optional => '(Opcional)';
+
+  @override
+  String get neighborhoodLabel => 'Bairro';
+
+  @override
+  String get cityLabel => 'Cidade';
+
+  @override
+  String get stateLabel => 'Estado';
+
+  @override
+  String get pleaseCompleteAddress =>
+      'Por favor, preencha o endereço completo.';
+
+  @override
+  String get openInMaps => 'Abrir no Mapa';
+
+  @override
+  String get mapAppError => 'Não foi possível abrir o aplicativo de mapas.';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -468,4 +520,56 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get portuguese => 'Português (Brasil)';
+
+  @override
+  String get addressDetails => 'Detalhes do Endereço';
+
+  @override
+  String get cepLabel => 'CEP *';
+
+  @override
+  String get validCepRequired => 'CEP inválido';
+
+  @override
+  String get searchCep => 'Buscar';
+
+  @override
+  String get cepNotFound => 'CEP não encontrado ou inválido.';
+
+  @override
+  String get streetLabel => 'Logradouro';
+
+  @override
+  String get streetRequired => 'Rua é obrigatória';
+
+  @override
+  String get numberLabel => 'Número *';
+
+  @override
+  String get numberRequired => 'Número é obrigatório';
+
+  @override
+  String get complementLabel => 'Complemento';
+
+  @override
+  String get optional => '(Opcional)';
+
+  @override
+  String get neighborhoodLabel => 'Bairro';
+
+  @override
+  String get cityLabel => 'Cidade';
+
+  @override
+  String get stateLabel => 'Estado';
+
+  @override
+  String get pleaseCompleteAddress =>
+      'Por favor, preencha o endereço completo.';
+
+  @override
+  String get openInMaps => 'Abrir no Mapa';
+
+  @override
+  String get mapAppError => 'Não foi possível abrir o aplicativo de mapas.';
 }
