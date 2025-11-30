@@ -41,6 +41,19 @@
   "resetButton": "Redefinir",
   "closeButton": "Fechar",
   "resetSuccess": "Banco de dados redefinido com sucesso!",
-  "resetFailure": "Falha ao redefinir o banco de dados."
+  "resetFailure": "Falha ao redefinir o banco de dados.",
+   "resetFailure": "Falha ao redefinir o banco de dados.",
+  "climbingGyms": "Academias de Escalada",
+  "noGymsYet": "Nenhuma academia cadastrada",
+  "tapToCreateFirstGym": "Toque no botão + para cadastrar a primeira academia",
+  "noLocationProvided": "Localização não informada",
+  "createGym": "Cadastrar Academia",
+  "gymName": "Nome da Academia *",
+  "enterGymName": "Digite o nome da academia",
+  "pleaseEnterGymName": "Por favor, insira o nome da academia",
+  "gymLocationOptional": "Localização (Opcional)",
+  "enterGymLocation": "Ex.: São Paulo, SP",
+  "saveGym": "Salvar Academia",
+  "gymCreatedSuccessfully": "Academia cadastrada com sucesso!"
 }
 

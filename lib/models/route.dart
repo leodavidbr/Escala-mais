@@ -6,6 +6,7 @@ class Route {
   final String name;
   final String? grade;
   final String photoPath;
+  final String gymId;
   final DateTime createdAt;
   final String? createdBy;
 
@@ -14,10 +15,11 @@ class Route {
     required this.name,
     this.grade,
     required this.photoPath,
+    required this.gymId,
     DateTime? createdAt,
     this.createdBy,
-  })  : id = id ?? const Uuid().v4(),
-        createdAt = createdAt ?? DateTime.now();
+  }) : id = id ?? const Uuid().v4(),
+       createdAt = createdAt ?? DateTime.now();
 
   /// Creates a Route from a JSON map.
   factory Route.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class Route {
       name: json['name'] as String,
       grade: json['grade'] as String?,
       photoPath: json['photoPath'] as String,
+      gymId: json['gymId'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
       createdBy: json['createdBy'] as String?,
     );
@@ -38,6 +41,7 @@ class Route {
       'name': name,
       'grade': grade,
       'photoPath': photoPath,
+      'gymId': gymId,
       'createdAt': createdAt.toIso8601String(),
       'createdBy': createdBy,
     };
@@ -49,6 +53,7 @@ class Route {
     String? name,
     String? grade,
     String? photoPath,
+    String? gymId,
     DateTime? createdAt,
     String? createdBy,
   }) {
@@ -57,6 +62,7 @@ class Route {
       name: name ?? this.name,
       grade: grade ?? this.grade,
       photoPath: photoPath ?? this.photoPath,
+      gymId: gymId ?? this.gymId,
       createdAt: createdAt ?? this.createdAt,
       createdBy: createdBy ?? this.createdBy,
     );
@@ -73,7 +79,6 @@ class Route {
 
   @override
   String toString() {
-    return 'Route(id: $id, name: $name, grade: $grade, createdAt: $createdAt)';
+    return 'Route(id: $id, gymId: $gymId, name: $name, grade: $grade, createdAt: $createdAt)';
   }
 }
-

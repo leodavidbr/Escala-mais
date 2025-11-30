@@ -142,4 +142,41 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetFailure => 'Failed to reset database.';
+
+  @override
+  String get climbingGyms => 'Climbing Gyms';
+
+  @override
+  String get noGymsYet => 'No gyms registered yet';
+
+  @override
+  String get tapToCreateFirstGym =>
+      'Tap the + button to register the first gym';
+
+  @override
+  String get noLocationProvided => 'Location not provided';
+
+  @override
+  String get createGym => 'Register Gym';
+
+  @override
+  String get gymName => 'Gym Name *';
+
+  @override
+  String get enterGymName => 'Enter gym name';
+
+  @override
+  String get pleaseEnterGymName => 'Please enter the gym name';
+
+  @override
+  String get gymLocationOptional => 'Location (Optional)';
+
+  @override
+  String get enterGymLocation => 'e.g.: New York, NY';
+
+  @override
+  String get saveGym => 'Save Gym';
+
+  @override
+  String get gymCreatedSuccessfully => 'Gym registered successfully!';
 }

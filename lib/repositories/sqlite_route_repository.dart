@@ -38,9 +38,14 @@ class SqliteRouteRepository implements RouteRepository {
   }
 
   /// Loads all routes from the database.
-  Future<List<Route>> _loadAllRoutes() async {
+  Future<List<Route>> _loadRoutesByGymId(String gymId) async {
     final db = await DatabaseService.database;
-    final maps = await db.query('routes', orderBy: 'createdAt DESC');
+    final maps = await db.query(
+      'routes',
+      where: 'gymId = ?',
+      whereArgs: [gymId],
+      orderBy: 'createdAt DESC',
+    );
 
     return maps.map((map) => _routeFromMap(map)).toList();
   }
@@ -51,6 +56,7 @@ class SqliteRouteRepository implements RouteRepository {
       return Route(
         id: map['id'] as String,
         name: map['name'] as String,
+        gymId: map['gymId'] as String,
         grade: map['grade'] as String?,
         photoPath: map['photoPath'] as String,
         createdAt: DateTime.parse(map['createdAt'] as String),
@@ -68,26 +74,28 @@ class SqliteRouteRepository implements RouteRepository {
       'name': route.name,
       'grade': route.grade,
       'photoPath': route.photoPath,
+      'gymId': route.gymId,
       'createdAt': route.createdAt.toIso8601String(),
       'createdBy': route.createdBy,
     };
   }
 
   @override
-  Stream<List<Route>> getAllRoutes() async* {
+  Stream<List<Route>> getRoutesByGymId(String gymId) async* {
     try {
       await _initialize();
       // Emit current state immediately
-      final routes = await _loadAllRoutes();
+      final routes = await _loadRoutesByGymId(gymId);
       yield routes;
 
-      // Then listen for updates from the stream controller
-      yield* _streamController.stream;
+      yield* _streamController.stream.asyncMap(
+        (_) => _loadRoutesByGymId(gymId),
+      );
     } catch (e) {
-      // Emit empty list on error to prevent stream from failing
       yield [];
-      // Continue listening for updates even after error
-      yield* _streamController.stream;
+      yield* _streamController.stream.asyncMap(
+        (_) => _loadRoutesByGymId(gymId),
+      );
     }
   }
 
@@ -123,7 +131,7 @@ class SqliteRouteRepository implements RouteRepository {
       );
 
       // Emit updated list
-      final routes = await _loadAllRoutes();
+      final routes = await _loadRoutesByGymId(route.gymId);
       _streamController.add(routes);
     } on DatabaseException catch (e) {
       // Handle unique constraint violation (duplicate ID)
@@ -140,6 +148,13 @@ class SqliteRouteRepository implements RouteRepository {
   @override
   Future<void> deleteRoute(String id) async {
     await _initialize();
+
+    final routeToDelete = await getRouteById(id);
+    if (routeToDelete == null) {
+      throw Exception('Route with id $id not found');
+    }
+    final gymId = routeToDelete.gymId;
+
     try {
       final db = await DatabaseService.database;
 
@@ -154,7 +169,7 @@ class SqliteRouteRepository implements RouteRepository {
       }
 
       // Emit updated list
-      final routes = await _loadAllRoutes();
+      final routes = await _loadRoutesByGymId(gymId);
       _streamController.add(routes);
     } catch (e) {
       if (e.toString().contains('not found')) {
@@ -167,9 +182,7 @@ class SqliteRouteRepository implements RouteRepository {
   @override
   Future<bool> resetDatabase() async {
     try {
-      await DatabaseService.resetDatabaseFile();
-      final newRoutes = await _loadAllRoutes();
-      _streamController.add(newRoutes);
+      _streamController.add([]);
 
       return true;
     } catch (e) {

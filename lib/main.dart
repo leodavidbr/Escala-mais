@@ -1,9 +1,9 @@
+import 'package:escala_mais/screens/gym_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'l10n/app_localizations.dart';
 import 'theme/app_theme.dart';
-import 'screens/route_list_screen.dart';
 import 'theme/theme_mode_notifier.dart'; // Importar o novo notifier;
 
 void main() {
@@ -14,7 +14,7 @@ class EscalaMaisApp extends ConsumerWidget {
   const EscalaMaisApp({super.key});
 
   @override
-  Widget build(BuildContext, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     return MaterialApp(
       title: 'Escala Mais',
@@ -43,7 +43,7 @@ class EscalaMaisApp extends ConsumerWidget {
         // For any other language, default to pt_BR
         return const Locale('pt', 'BR');
       },
-      home: const RouteListScreen(),
+      home: const GymListScreen(),
     );
   }
 }

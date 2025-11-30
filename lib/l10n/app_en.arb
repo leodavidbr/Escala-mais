@@ -182,6 +182,30 @@
   "resetFailure": "Failed to reset database.",
   "@resetFailure": {
     "description": "Failure message after database reset"
-  }
+  },
+  "climbingGyms": "Climbing Gyms",
+  "@climbingGyms": { "description": "Title for the Gyms list screen" },
+  "noGymsYet": "No gyms registered yet",
+  "@noGymsYet": { "description": "Message shown when there are no gyms" },
+  "tapToCreateFirstGym": "Tap the + button to register the first gym",
+  "@tapToCreateFirstGym": { "description": "Hint message for creating first gym" },
+  "noLocationProvided": "Location not provided",
+  "@noLocationProvided": { "description": "Placeholder when gym location is missing" },
+  "createGym": "Register Gym",
+  "@createGym": { "description": "Title for create gym screen" },
+  "gymName": "Gym Name *",
+  "@gymName": { "description": "Label for gym name field" },
+  "enterGymName": "Enter gym name",
+  "@enterGymName": { "description": "Hint for gym name field" },
+  "pleaseEnterGymName": "Please enter the gym name",
+  "@pleaseEnterGymName": { "description": "Validation message for gym name" },
+  "gymLocationOptional": "Location (Optional)",
+  "@gymLocationOptional": { "description": "Label for gym location field" },
+  "enterGymLocation": "e.g.: New York, NY",
+  "@enterGymLocation": { "description": "Hint for gym location field" },
+  "saveGym": "Save Gym",
+  "@saveGym": { "description": "Button to save gym" },
+  "gymCreatedSuccessfully": "Gym registered successfully!",
+  "@gymCreatedSuccessfully": { "description": "Success message when gym is created" }
 }
 
