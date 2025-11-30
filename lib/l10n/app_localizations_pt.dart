@@ -200,6 +200,23 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get errorDeletingRoute => 'Erro ao excluir rota';
+
+  @override
+  String get deleteGym => 'Excluir Academia';
+
+  @override
+  String get confirmDeleteGymTitle => 'Confirmar Exclusão';
+
+  @override
+  String confirmDeleteGymMessage(String gymName) {
+    return 'Tem certeza que deseja excluir a academia \'$gymName\' e todas as suas rotas? Esta ação não pode ser desfeita.';
+  }
+
+  @override
+  String get gymDeletedSuccessfully => 'Academia excluída com sucesso!';
+
+  @override
+  String get errorDeletingGym => 'Erro ao excluir academia';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -398,4 +415,21 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get errorDeletingRoute => 'Erro ao excluir rota';
+
+  @override
+  String get deleteGym => 'Excluir Academia';
+
+  @override
+  String get confirmDeleteGymTitle => 'Confirmar Exclusão';
+
+  @override
+  String confirmDeleteGymMessage(String gymName) {
+    return 'Tem certeza que deseja excluir a academia \'$gymName\' e todas as suas rotas? Esta ação não pode ser desfeita.';
+  }
+
+  @override
+  String get gymDeletedSuccessfully => 'Academia excluída com sucesso!';
+
+  @override
+  String get errorDeletingGym => 'Erro ao excluir academia';
 }

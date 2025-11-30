@@ -199,4 +199,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorDeletingRoute => 'Error deleting route';
+
+  @override
+  String get deleteGym => 'Delete Gym';
+
+  @override
+  String get confirmDeleteGymTitle => 'Confirm Deletion';
+
+  @override
+  String confirmDeleteGymMessage(String gymName) {
+    return 'Are you sure you want to delete the gym \'$gymName\' and all its routes? This action cannot be undone.';
+  }
+
+  @override
+  String get gymDeletedSuccessfully => 'Gym deleted successfully!';
+
+  @override
+  String get errorDeletingGym => 'Error deleting gym';
 }

@@ -60,6 +60,11 @@
   "confirmDeleteRouteMessage": "Tem certeza que deseja excluir a rota '{routeName}'? Esta ação não pode ser desfeita.",
   "deleteButton": "Excluir",
   "routeDeletedSuccessfully": "Rota excluída com sucesso!",
-  "errorDeletingRoute": "Erro ao excluir rota"
+  "errorDeletingRoute": "Erro ao excluir rota",
+  "deleteGym": "Excluir Academia",
+  "confirmDeleteGymTitle": "Confirmar Exclusão",
+  "confirmDeleteGymMessage": "Tem certeza que deseja excluir a academia '{gymName}' e todas as suas rotas? Esta ação não pode ser desfeita.",
+  "gymDeletedSuccessfully": "Academia excluída com sucesso!",
+  "errorDeletingGym": "Erro ao excluir academia"
 }
 

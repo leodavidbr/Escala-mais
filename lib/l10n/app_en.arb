@@ -225,6 +225,23 @@
   "routeDeletedSuccessfully": "Route deleted successfully!",
   "@routeDeletedSuccessfully": { "description": "Success message after route deletion" },
   "errorDeletingRoute": "Error deleting route",
-  "@errorDeletingRoute": { "description": "Error message when route deletion fails" }
+  "@errorDeletingRoute": { "description": "Error message when route deletion fails" },
+  "deleteGym": "Delete Gym",
+  "@deleteGym": { "description": "Option to delete a gym" },
+  "confirmDeleteGymTitle": "Confirm Deletion",
+  "@confirmDeleteGymTitle": { "description": "Title for gym deletion confirmation dialog" },
+  "confirmDeleteGymMessage": "Are you sure you want to delete the gym '{gymName}' and all its routes? This action cannot be undone.",
+  "@confirmDeleteGymMessage": {
+    "description": "Body message for gym deletion confirmation dialog",
+    "placeholders": {
+      "gymName": {
+        "type": "String"
+      }
+    }
+  },
+  "gymDeletedSuccessfully": "Gym deleted successfully!",
+  "@gymDeletedSuccessfully": { "description": "Success message after gym deletion" },
+  "errorDeletingGym": "Error deleting gym",
+  "@errorDeletingGym": { "description": "Error message when gym deletion fails" }
 }
 

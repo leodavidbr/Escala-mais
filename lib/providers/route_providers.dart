@@ -215,3 +215,46 @@ final deleteRouteProvider =
     StateNotifierProvider<DeleteRouteNotifier, DeleteRouteState>((ref) {
       return DeleteRouteNotifier(ref);
     });
+
+class DeleteGymState {
+  final bool isLoading;
+  final String? error;
+  final bool isDeleted;
+
+  DeleteGymState({this.isLoading = false, this.error, this.isDeleted = false});
+
+  DeleteGymState copyWith({bool? isLoading, String? error, bool? isDeleted}) {
+    return DeleteGymState(
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
+}
+
+class DeleteGymNotifier extends StateNotifier<DeleteGymState> {
+  DeleteGymNotifier(this.ref) : super(DeleteGymState());
+
+  final Ref ref;
+
+  Future<void> deleteGym(String gymId) async {
+    state = state.copyWith(isLoading: true, error: null, isDeleted: false);
+
+    try {
+      final repository = ref.read(gymRepositoryProvider);
+      await repository.deleteGym(gymId);
+      state = state.copyWith(isLoading: false, isDeleted: true);
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString());
+    }
+  }
+
+  void reset() {
+    state = DeleteGymState();
+  }
+}
+
+final deleteGymProvider =
+    StateNotifierProvider<DeleteGymNotifier, DeleteGymState>((ref) {
+      return DeleteGymNotifier(ref);
+    });
