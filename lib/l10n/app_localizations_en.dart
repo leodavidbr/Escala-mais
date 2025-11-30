@@ -216,4 +216,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorDeletingGym => 'Error deleting gym';
+
+  @override
+  String get languageTitle => 'Language';
+
+  @override
+  String get languageSubtitle => 'Select application language';
+
+  @override
+  String get selectLanguage => 'Select Language';
+
+  @override
+  String get systemDefault => 'System Default';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get portuguese => 'Português (Brasil)';
 }

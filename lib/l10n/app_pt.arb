@@ -64,7 +64,13 @@
   "confirmDeleteGymTitle": "Confirmar Exclusão",
   "confirmDeleteGymMessage": "Tem certeza que deseja excluir a academia '{gymName}' e todas as suas rotas? Esta ação não pode ser desfeita.",
   "gymDeletedSuccessfully": "Academia excluída com sucesso!",
-  "errorDeletingGym": "Erro ao excluir academia"
+  "errorDeletingGym": "Erro ao excluir academia",
+  "languageTitle": "Idioma",
+  "languageSubtitle": "Selecionar idioma do aplicativo",
+  "selectLanguage": "Selecionar Idioma",
+  "systemDefault": "Padrão do Sistema",
+  "english": "English",
+  "portuguese": "Português (Brasil)"
 }
 
 

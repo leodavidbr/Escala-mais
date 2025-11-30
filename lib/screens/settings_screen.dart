@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/route_providers.dart';
 import '../theme/theme_mode_notifier.dart';
+import '../theme/locale_notifier.dart';
 
 const String _termsOfUseContent = '''
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
@@ -49,6 +50,15 @@ class SettingsScreen extends ConsumerWidget {
           const Divider(),
 
           ListTile(
+            title: Text(l10n.languageTitle),
+            subtitle: Text(l10n.languageSubtitle),
+            leading: const Icon(Icons.language),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+            onTap: () => _showLanguageDialog(context, ref, l10n),
+          ),
+          const Divider(),
+
+          ListTile(
             title: Text(l10n.resetDatabaseTitle),
             subtitle: Text(l10n.resetDatabaseSubtitle),
             leading: const Icon(Icons.delete_forever, color: Colors.red),
@@ -64,6 +74,52 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const Divider(),
         ],
+      ),
+    );
+  }
+
+  void _showLanguageDialog(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations l10n,
+  ) {
+    final currentLocale = ref.read(localeProvider);
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.selectLanguage),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            RadioListTile<Locale?>(
+              title: Text(l10n.systemDefault),
+              value: null,
+              groupValue: currentLocale,
+              onChanged: (value) {
+                ref.read(localeProvider.notifier).setSystemDefault();
+                Navigator.of(ctx).pop();
+              },
+            ),
+            RadioListTile<Locale?>(
+              title: Text(l10n.english),
+              value: const Locale('en'),
+              groupValue: currentLocale,
+              onChanged: (value) {
+                ref.read(localeProvider.notifier).setEnglish();
+                Navigator.of(ctx).pop();
+              },
+            ),
+            RadioListTile<Locale?>(
+              title: Text(l10n.portuguese),
+              value: const Locale('pt', 'BR'),
+              groupValue: currentLocale,
+              onChanged: (value) {
+                ref.read(localeProvider.notifier).setPortuguese();
+                Navigator.of(ctx).pop();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

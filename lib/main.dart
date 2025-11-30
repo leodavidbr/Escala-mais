@@ -4,7 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'l10n/app_localizations.dart';
 import 'theme/app_theme.dart';
-import 'theme/theme_mode_notifier.dart'; // Importar o novo notifier;
+import 'theme/theme_mode_notifier.dart';
+import 'theme/locale_notifier.dart';
 
 void main() {
   runApp(const ProviderScope(child: EscalaMaisApp()));
@@ -16,12 +17,14 @@ class EscalaMaisApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
+    final locale = ref.watch(localeProvider);
     return MaterialApp(
       title: 'Escala Mais',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
+      locale: locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
