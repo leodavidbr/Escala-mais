@@ -488,6 +488,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error deleting gym'**
   String get errorDeletingGym;
+
+  /// Title for language setting
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get languageTitle;
+
+  /// Subtitle for language setting
+  ///
+  /// In en, this message translates to:
+  /// **'Select application language'**
+  String get languageSubtitle;
+
+  /// Title for language selection dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get selectLanguage;
+
+  /// Option to use system default language
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get systemDefault;
+
+  /// English language option
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// Portuguese (Brazil) language option
+  ///
+  /// In en, this message translates to:
+  /// **'Português (Brasil)'**
+  String get portuguese;
 }
 
 class _AppLocalizationsDelegate

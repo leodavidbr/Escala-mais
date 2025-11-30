@@ -217,6 +217,24 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get errorDeletingGym => 'Erro ao excluir academia';
+
+  @override
+  String get languageTitle => 'Idioma';
+
+  @override
+  String get languageSubtitle => 'Selecionar idioma do aplicativo';
+
+  @override
+  String get selectLanguage => 'Selecionar Idioma';
+
+  @override
+  String get systemDefault => 'Padrão do Sistema';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get portuguese => 'Português (Brasil)';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -432,4 +450,22 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get errorDeletingGym => 'Erro ao excluir academia';
+
+  @override
+  String get languageTitle => 'Idioma';
+
+  @override
+  String get languageSubtitle => 'Selecionar idioma do aplicativo';
+
+  @override
+  String get selectLanguage => 'Selecionar Idioma';
+
+  @override
+  String get systemDefault => 'Padrão do Sistema';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get portuguese => 'Português (Brasil)';
 }

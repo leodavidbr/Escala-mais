@@ -242,6 +242,18 @@
   "gymDeletedSuccessfully": "Gym deleted successfully!",
   "@gymDeletedSuccessfully": { "description": "Success message after gym deletion" },
   "errorDeletingGym": "Error deleting gym",
-  "@errorDeletingGym": { "description": "Error message when gym deletion fails" }
+  "@errorDeletingGym": { "description": "Error message when gym deletion fails" },
+  "languageTitle": "Language",
+  "@languageTitle": { "description": "Title for language setting" },
+  "languageSubtitle": "Select application language",
+  "@languageSubtitle": { "description": "Subtitle for language setting" },
+  "selectLanguage": "Select Language",
+  "@selectLanguage": { "description": "Title for language selection dialog" },
+  "systemDefault": "System Default",
+  "@systemDefault": { "description": "Option to use system default language" },
+  "english": "English",
+  "@english": { "description": "English language option" },
+  "portuguese": "Português (Brasil)",
+  "@portuguese": { "description": "Portuguese (Brazil) language option" }
 }
 
