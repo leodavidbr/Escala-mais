@@ -126,11 +126,9 @@ class SettingsScreen extends ConsumerWidget {
         .resetDatabase();
     if (gymResetSuccess) {
       await ref.read(routeRepositoryProvider).resetDatabase();
-    }
-    if (gymResetSuccess) {
+
       ref.invalidate(gymsProvider);
-    }
-    if (gymResetSuccess) {
+
       scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text(l10n.resetSuccess),

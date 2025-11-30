@@ -182,7 +182,6 @@ class SqliteRouteRepository implements RouteRepository {
   @override
   Future<bool> resetDatabase() async {
     try {
-      await DatabaseService.resetDatabaseFile();
       _streamController.add([]);
 
       return true;
