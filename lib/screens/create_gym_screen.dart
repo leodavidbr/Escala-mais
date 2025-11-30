@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
 import '../providers/route_providers.dart';
 
 /// Screen for creating a new climbing gym.
@@ -42,7 +43,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.error(state.error!)),
-            backgroundColor: Colors.red,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
       } else {
@@ -50,7 +51,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.gymCreatedSuccessfully),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).colorScheme.success,
           ),
         );
         createGymNotifier.reset();

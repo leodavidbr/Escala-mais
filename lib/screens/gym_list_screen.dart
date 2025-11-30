@@ -3,6 +3,7 @@ import 'package:escala_mais/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/app_theme.dart';
 import '../providers/route_providers.dart';
 import 'create_gym_screen.dart';
 
@@ -37,7 +38,11 @@ class GymListScreen extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.location_city, size: 64, color: Colors.grey),
+                  Icon(
+                    Icons.location_city,
+                    size: 64,
+                    color: Theme.of(context).colorScheme.placeholderIcon,
+                  ),
                   const SizedBox(height: 16),
                   Text(
                     l10n.noGymsYet,
@@ -169,7 +174,7 @@ class GymListScreen extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(l10n.gymDeletedSuccessfully),
-              backgroundColor: Colors.green,
+              backgroundColor: Theme.of(context).colorScheme.success,
             ),
           );
         }

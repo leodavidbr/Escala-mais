@@ -83,13 +83,13 @@ class RouteDetailScreen extends ConsumerWidget {
                           children: [
                             Icon(
                               Icons.trending_up,
-                              color: theme.colorScheme.primary,
+                              color: theme.colorScheme.secondary,
                             ),
                             const SizedBox(width: 8),
                             Text(
                               l10n.grade(route.grade!),
                               style: theme.textTheme.titleMedium?.copyWith(
-                                color: theme.colorScheme.primary,
+                                color: theme.colorScheme.secondary,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -104,14 +104,14 @@ class RouteDetailScreen extends ConsumerWidget {
                           Icon(
                             Icons.calendar_today,
                             size: 20,
-                            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                            color: theme.colorScheme.onSurface,
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               l10n.created(dateFormat.format(route.createdAt)),
                               style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                                color: theme.colorScheme.onSurface,
                               ),
                             ),
                           ),
