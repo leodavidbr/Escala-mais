@@ -1,4 +1,3 @@
-import 'package:escala_mais/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
@@ -8,29 +7,22 @@ import 'create_route_screen.dart';
 import 'route_detail_screen.dart';
 
 /// Screen displaying a list of all climbing routes.
-class RouteListScreen extends ConsumerWidget {
-  const RouteListScreen({super.key});
+class GymRouteListScreen extends ConsumerWidget {
+  final String gymId;
+  final String gymName;
+  const GymRouteListScreen({
+    super.key,
+    required this.gymId,
+    required this.gymName,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final routesAsync = ref.watch(routesProvider);
+    final routesAsync = ref.watch(routesProvider(gymId));
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.climbingRoutes),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SettingsScreen()),
-              );
-            },
-          ),
-        ],
-      ),
+      appBar: AppBar(title: Text(gymName)),
       body: routesAsync.when(
         data: (routes) {
           if (routes.isEmpty) {
@@ -71,7 +63,7 @@ class RouteListScreen extends ConsumerWidget {
           return RefreshIndicator(
             onRefresh: () async {
               // Force refresh by re-reading the provider
-              ref.invalidate(routesProvider);
+              ref.invalidate(routesProvider(gymId));
             },
             child: ListView.builder(
               itemCount: routes.length,
@@ -129,7 +121,9 @@ class RouteListScreen extends ConsumerWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CreateRouteScreen()),
+            MaterialPageRoute(
+              builder: (context) => CreateRouteScreen(gymId: gymId),
+            ),
           );
         },
         child: const Icon(Icons.add),

@@ -350,6 +350,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to reset database.'**
   String get resetFailure;
+
+  /// Title for the Gyms list screen
+  ///
+  /// In en, this message translates to:
+  /// **'Climbing Gyms'**
+  String get climbingGyms;
+
+  /// Message shown when there are no gyms
+  ///
+  /// In en, this message translates to:
+  /// **'No gyms registered yet'**
+  String get noGymsYet;
+
+  /// Hint message for creating first gym
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the + button to register the first gym'**
+  String get tapToCreateFirstGym;
+
+  /// Placeholder when gym location is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Location not provided'**
+  String get noLocationProvided;
+
+  /// Title for create gym screen
+  ///
+  /// In en, this message translates to:
+  /// **'Register Gym'**
+  String get createGym;
+
+  /// Label for gym name field
+  ///
+  /// In en, this message translates to:
+  /// **'Gym Name *'**
+  String get gymName;
+
+  /// Hint for gym name field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter gym name'**
+  String get enterGymName;
+
+  /// Validation message for gym name
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the gym name'**
+  String get pleaseEnterGymName;
+
+  /// Label for gym location field
+  ///
+  /// In en, this message translates to:
+  /// **'Location (Optional)'**
+  String get gymLocationOptional;
+
+  /// Hint for gym location field
+  ///
+  /// In en, this message translates to:
+  /// **'e.g.: New York, NY'**
+  String get enterGymLocation;
+
+  /// Button to save gym
+  ///
+  /// In en, this message translates to:
+  /// **'Save Gym'**
+  String get saveGym;
+
+  /// Success message when gym is created
+  ///
+  /// In en, this message translates to:
+  /// **'Gym registered successfully!'**
+  String get gymCreatedSuccessfully;
 }
 
 class _AppLocalizationsDelegate

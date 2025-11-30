@@ -143,6 +143,43 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get resetFailure => 'Falha ao redefinir o banco de dados.';
+
+  @override
+  String get climbingGyms => 'Academias de Escalada';
+
+  @override
+  String get noGymsYet => 'Nenhuma academia cadastrada';
+
+  @override
+  String get tapToCreateFirstGym =>
+      'Toque no botão + para cadastrar a primeira academia';
+
+  @override
+  String get noLocationProvided => 'Localização não informada';
+
+  @override
+  String get createGym => 'Cadastrar Academia';
+
+  @override
+  String get gymName => 'Nome da Academia *';
+
+  @override
+  String get enterGymName => 'Digite o nome da academia';
+
+  @override
+  String get pleaseEnterGymName => 'Por favor, insira o nome da academia';
+
+  @override
+  String get gymLocationOptional => 'Localização (Opcional)';
+
+  @override
+  String get enterGymLocation => 'Ex.: São Paulo, SP';
+
+  @override
+  String get saveGym => 'Salvar Academia';
+
+  @override
+  String get gymCreatedSuccessfully => 'Academia cadastrada com sucesso!';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -284,4 +321,41 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get resetFailure => 'Falha ao redefinir o banco de dados.';
+
+  @override
+  String get climbingGyms => 'Academias de Escalada';
+
+  @override
+  String get noGymsYet => 'Nenhuma academia cadastrada';
+
+  @override
+  String get tapToCreateFirstGym =>
+      'Toque no botão + para cadastrar a primeira academia';
+
+  @override
+  String get noLocationProvided => 'Localização não informada';
+
+  @override
+  String get createGym => 'Cadastrar Academia';
+
+  @override
+  String get gymName => 'Nome da Academia *';
+
+  @override
+  String get enterGymName => 'Digite o nome da academia';
+
+  @override
+  String get pleaseEnterGymName => 'Por favor, insira o nome da academia';
+
+  @override
+  String get gymLocationOptional => 'Localização (Opcional)';
+
+  @override
+  String get enterGymLocation => 'Ex.: São Paulo, SP';
+
+  @override
+  String get saveGym => 'Salvar Academia';
+
+  @override
+  String get gymCreatedSuccessfully => 'Academia cadastrada com sucesso!';
 }

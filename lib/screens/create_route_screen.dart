@@ -6,7 +6,8 @@ import '../providers/route_providers.dart';
 
 /// Screen for creating a new climbing route.
 class CreateRouteScreen extends ConsumerStatefulWidget {
-  const CreateRouteScreen({super.key});
+  final String gymId;
+  const CreateRouteScreen({super.key, required this.gymId});
 
   @override
   ConsumerState<CreateRouteScreen> createState() => _CreateRouteScreenState();
@@ -19,15 +20,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
   File? _selectedImage;
   bool _isSaving = false;
 
-  final List<String> _grades = [
-    'v1',
-    'v2',
-    'v3',
-    'v4',
-    'v5',
-    'v6',
-    'v7',
-  ];
+  final List<String> _grades = ['v1', 'v2', 'v3', 'v4', 'v5', 'v6', 'v7'];
 
   @override
   void dispose() {
@@ -45,11 +38,9 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
       });
     } else if (mounted && image == null) {
       final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.noImageSelected),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(l10n.noImageSelected)));
     }
   }
 
@@ -110,6 +101,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
 
       final createRouteNotifier = ref.read(createRouteProvider.notifier);
       await createRouteNotifier.createRoute(
+        gymId: widget.gymId,
         name: _nameController.text.trim(),
         grade: _selectedGrade,
         photoPath: savedImagePath,
@@ -161,9 +153,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.createRoute),
-      ),
+      appBar: AppBar(title: Text(l10n.createRoute)),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -188,10 +178,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
                   child: _selectedImage != null
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.file(
-                            _selectedImage!,
-                            fit: BoxFit.cover,
-                          ),
+                          child: Image.file(_selectedImage!, fit: BoxFit.cover),
                         )
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -271,9 +258,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
                     ? const SizedBox(
                         height: 20,
                         width: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                        ),
+                        child: CircularProgressIndicator(strokeWidth: 2),
                       )
                     : Text(
                         l10n.saveRoute,
@@ -287,4 +272,3 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
     );
   }
 }
-

@@ -121,16 +121,22 @@ class SettingsScreen extends ConsumerWidget {
     AppLocalizations l10n,
   ) async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final isConfirmed = await ref.read(routeRepositoryProvider).resetDatabase();
-
-    if (isConfirmed) {
+    final gymResetSuccess = await ref
+        .read(gymRepositoryProvider)
+        .resetDatabase();
+    if (gymResetSuccess) {
+      await ref.read(routeRepositoryProvider).resetDatabase();
+    }
+    if (gymResetSuccess) {
+      ref.invalidate(gymsProvider);
+    }
+    if (gymResetSuccess) {
       scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text(l10n.resetSuccess),
           backgroundColor: Colors.green,
         ),
       );
-      ref.invalidate(routesProvider);
     } else {
       scaffoldMessenger.showSnackBar(
         SnackBar(content: Text(l10n.resetFailure), backgroundColor: Colors.red),
