@@ -7,6 +7,7 @@ import '../services/image_service.dart';
 import '../services/storage_service.dart';
 import '../repositories/gym_repository.dart';
 import '../repositories/sqlite_gym_repository.dart';
+import '../services/cep_service.dart';
 
 /// Provides the route repository instance.
 /// Uses SQLite for persistent storage.
@@ -48,6 +49,11 @@ final gymsProvider = StreamProvider<List<Gym>>((ref) {
 final gymProvider = FutureProvider.family<Gym?, String>((ref, gymId) async {
   final repository = ref.watch(gymRepositoryProvider);
   return repository.getGymById(gymId);
+});
+
+/// Provides the CEP service instance.
+final cepServiceProvider = Provider<CepService>((ref) {
+  return CepService();
 });
 
 /// Stream provider that provides all routes.
@@ -149,11 +155,15 @@ class CreateGymNotifier extends StateNotifier<CreateGymState> {
 
   final Ref ref;
 
-  Future<void> createGym({required String name, String? location}) async {
+  Future<void> createGym({
+    required String name,
+    required String location,
+  }) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
       final repository = ref.read(gymRepositoryProvider);
+
       final gym = Gym(name: name, location: location);
 
       await repository.createGym(gym);
@@ -178,7 +188,11 @@ class DeleteRouteState {
   final String? error;
   final bool isDeleted;
 
-  DeleteRouteState({this.isLoading = false, this.error, this.isDeleted = false});
+  DeleteRouteState({
+    this.isLoading = false,
+    this.error,
+    this.isDeleted = false,
+  });
 
   DeleteRouteState copyWith({bool? isLoading, String? error, bool? isDeleted}) {
     return DeleteRouteState(

@@ -234,4 +234,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get portuguese => 'Português (Brasil)';
+
+  @override
+  String get addressDetails => 'Address Details';
+
+  @override
+  String get cepLabel => 'ZIP/Postal Code *';
+
+  @override
+  String get validCepRequired => 'Invalid ZIP/Postal Code';
+
+  @override
+  String get searchCep => 'Search';
+
+  @override
+  String get cepNotFound => 'ZIP/Postal Code not found or invalid.';
+
+  @override
+  String get streetLabel => 'Street/Avenue';
+
+  @override
+  String get streetRequired => 'Street is required';
+
+  @override
+  String get numberLabel => 'Number *';
+
+  @override
+  String get numberRequired => 'Number is required';
+
+  @override
+  String get complementLabel => 'Complement';
+
+  @override
+  String get optional => '(Optional)';
+
+  @override
+  String get neighborhoodLabel => 'Neighborhood';
+
+  @override
+  String get cityLabel => 'City';
+
+  @override
+  String get stateLabel => 'State';
+
+  @override
+  String get pleaseCompleteAddress => 'Please fill in the complete address.';
+
+  @override
+  String get openInMaps => 'Open in Maps';
+
+  @override
+  String get mapAppError => 'Could not launch map application.';
 }

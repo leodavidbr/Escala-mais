@@ -524,6 +524,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Português (Brasil)'**
   String get portuguese;
+
+  /// Section header for address input
+  ///
+  /// In en, this message translates to:
+  /// **'Address Details'**
+  String get addressDetails;
+
+  /// Label for the CEP/ZIP field
+  ///
+  /// In en, this message translates to:
+  /// **'ZIP/Postal Code *'**
+  String get cepLabel;
+
+  /// Validation message for CEP
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid ZIP/Postal Code'**
+  String get validCepRequired;
+
+  /// Button to search address by CEP
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get searchCep;
+
+  /// Error message when CEP search fails
+  ///
+  /// In en, this message translates to:
+  /// **'ZIP/Postal Code not found or invalid.'**
+  String get cepNotFound;
+
+  /// Label for street name field
+  ///
+  /// In en, this message translates to:
+  /// **'Street/Avenue'**
+  String get streetLabel;
+
+  /// Validation message for street name
+  ///
+  /// In en, this message translates to:
+  /// **'Street is required'**
+  String get streetRequired;
+
+  /// Label for number field
+  ///
+  /// In en, this message translates to:
+  /// **'Number *'**
+  String get numberLabel;
+
+  /// Validation message for number
+  ///
+  /// In en, this message translates to:
+  /// **'Number is required'**
+  String get numberRequired;
+
+  /// Label for complement field
+  ///
+  /// In en, this message translates to:
+  /// **'Complement'**
+  String get complementLabel;
+
+  /// Label for optional fields
+  ///
+  /// In en, this message translates to:
+  /// **'(Optional)'**
+  String get optional;
+
+  /// Label for neighborhood field
+  ///
+  /// In en, this message translates to:
+  /// **'Neighborhood'**
+  String get neighborhoodLabel;
+
+  /// Label for city field
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get cityLabel;
+
+  /// Label for state field
+  ///
+  /// In en, this message translates to:
+  /// **'State'**
+  String get stateLabel;
+
+  /// Validation message for missing address parts
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in the complete address.'**
+  String get pleaseCompleteAddress;
+
+  /// Tooltip/Action to open maps
+  ///
+  /// In en, this message translates to:
+  /// **'Open in Maps'**
+  String get openInMaps;
+
+  /// Error message when launching map fails
+  ///
+  /// In en, this message translates to:
+  /// **'Could not launch map application.'**
+  String get mapAppError;
 }
 
 class _AppLocalizationsDelegate

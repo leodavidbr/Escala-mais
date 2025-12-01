@@ -70,7 +70,30 @@
   "selectLanguage": "Selecionar Idioma",
   "systemDefault": "Padrão do Sistema",
   "english": "English",
-  "portuguese": "Português (Brasil)"
+  "portuguese": "Português (Brasil)",
+  "addressDetails": "Detalhes do Endereço",
+  "cepLabel": "CEP *",
+  "validCepRequired": "CEP inválido",
+  "searchCep": "Buscar",
+  "cepNotFound": "CEP não encontrado ou inválido.",
+  "streetLabel": "Logradouro",
+  "streetRequired": "Rua é obrigatória",
+  "numberLabel": "Número *",
+  "numberRequired": "Número é obrigatório",
+  "complementLabel": "Complemento",
+  "optional": "(Opcional)",
+  "neighborhoodLabel": "Bairro",
+  "cityLabel": "Cidade",
+  "stateLabel": "Estado",
+  "pleaseCompleteAddress": "Por favor, preencha o endereço completo.",
+  "gymName": "Nome da Academia *",
+  "enterGymName": "Digite o nome da academia",
+  "pleaseEnterGymName": "Por favor, insira o nome da academia",
+  "gymLocationOptional": "Localização (Opcional)",
+  "enterGymLocation": "Ex.: São Paulo, SP",
+  "saveGym": "Salvar Academia",
+  "openInMaps": "Abrir no Mapa",
+  "mapAppError": "Não foi possível abrir o aplicativo de mapas."
 }
 
 

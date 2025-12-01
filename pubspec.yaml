@@ -60,6 +60,8 @@ dependencies:
   
   # SQLite database
   sqflite: ^2.3.3+2
+  http: ^1.6.0
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
