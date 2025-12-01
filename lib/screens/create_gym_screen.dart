@@ -1,3 +1,4 @@
+import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:escala_mais/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,6 +29,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
 
   @override
   void dispose() {
+    logDebug('CreateGymScreen disposed');
     _nameController.dispose();
     _cepController.dispose();
     _streetController.dispose();
@@ -49,6 +51,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
 
     final l10n = AppLocalizations.of(context)!;
     final cepService = ref.read(cepServiceProvider);
+    logInfo('Searching CEP for gym', {'cep': cep});
     final result = await cepService.fetchAddress(cep);
 
     if (mounted) {
@@ -57,6 +60,13 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
       });
 
       if (result != null) {
+        logInfo('CEP search successful', {
+          'cep': cep,
+          'logradouro': result.logradouro,
+          'bairro': result.bairro,
+          'cidade': result.localidade,
+          'uf': result.uf,
+        });
         _streetController.text = result.logradouro;
         _neighborhoodController.text = result.bairro;
         _cityController.text = result.localidade;
@@ -64,6 +74,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
 
         FocusScope.of(context).requestFocus(FocusNode());
       } else {
+        logWarning('CEP not found while creating gym', {'cep': cep});
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.cepNotFound),
@@ -105,6 +116,10 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
 
     final createGymNotifier = ref.read(createGymProvider.notifier);
 
+    logInfo('Creating gym from form', {
+      'name': _nameController.text.trim(),
+      'location': locationString,
+    });
     await createGymNotifier.createGym(
       name: _nameController.text.trim(),
       location: locationString,
@@ -113,6 +128,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
     if (mounted) {
       final state = ref.read(createGymProvider);
       if (state.error != null) {
+        logError('Failed to create gym', state.error);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.error(state.error!)),
@@ -120,6 +136,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
           ),
         );
       } else {
+        logInfo('Gym created successfully from form');
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

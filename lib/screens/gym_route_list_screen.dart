@@ -1,3 +1,4 @@
+import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
@@ -19,6 +20,7 @@ class GymRouteListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    logInfo('GymRouteListScreen build called', {'gymId': gymId, 'gymName': gymName});
     final routesAsync = ref.watch(routesProvider(gymId));
     final l10n = AppLocalizations.of(context)!;
 
@@ -26,6 +28,7 @@ class GymRouteListScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(gymName)),
       body: routesAsync.when(
         data: (routes) {
+          logInfo('Loaded routes for gym', {'gymId': gymId, 'count': routes.length});
           if (routes.isEmpty) {
             return Center(
               child: Column(
@@ -64,6 +67,7 @@ class GymRouteListScreen extends ConsumerWidget {
           return RefreshIndicator(
             onRefresh: () async {
               // Force refresh by re-reading the provider
+              logInfo('Refreshing routes for gym', {'gymId': gymId});
               ref.invalidate(routesProvider(gymId));
             },
             child: ListView.builder(
@@ -74,6 +78,11 @@ class GymRouteListScreen extends ConsumerWidget {
                   key: Key(route.id),
                   direction: DismissDirection.endToStart,
                   confirmDismiss: (direction) async {
+                    logInfo('Request delete route', {
+                      'routeId': route.id,
+                      'routeName': route.name,
+                      'gymId': route.gymId,
+                    });
                     return await _showDeleteConfirmation(
                       context,
                       route.name,
@@ -93,6 +102,11 @@ class GymRouteListScreen extends ConsumerWidget {
                   child: RouteCard(
                     route: route,
                     onTap: () {
+                      logInfo('Navigating to RouteDetailScreen', {
+                        'routeId': route.id,
+                        'routeName': route.name,
+                        'gymId': route.gymId,
+                      });
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -102,6 +116,11 @@ class GymRouteListScreen extends ConsumerWidget {
                       );
                     },
                     onDelete: () async {
+                      logInfo('RouteCard delete pressed', {
+                        'routeId': route.id,
+                        'routeName': route.name,
+                        'gymId': route.gymId,
+                      });
                       await _showDeleteConfirmation(
                         context,
                         route.name,
@@ -149,6 +168,7 @@ class GymRouteListScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          logInfo('Navigating to CreateRouteScreen', {'gymId': gymId, 'gymName': gymName});
           Navigator.push(
             context,
             MaterialPageRoute(

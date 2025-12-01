@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:escala_mais/screens/gym_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,7 +11,20 @@ import 'theme/theme_mode_notifier.dart';
 import 'theme/locale_notifier.dart';
 
 void main() {
-  runApp(const ProviderScope(child: EscalaMaisApp()));
+  FlutterError.onError = (FlutterErrorDetails details) {
+    // Log Flutter framework errors.
+    logError('FlutterError: ${details.exceptionAsString()}', details.exception, details.stack);
+  };
+
+  runZonedGuarded(
+    () {
+      runApp(const ProviderScope(child: EscalaMaisApp()));
+    },
+    (Object error, StackTrace stack) {
+      // Log uncaught async errors.
+      logError('Uncaught zone error', error, stack);
+    },
+  );
 }
 
 class EscalaMaisApp extends ConsumerWidget {

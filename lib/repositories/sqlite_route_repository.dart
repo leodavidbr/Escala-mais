@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:sqflite/sqflite.dart';
 import 'route_repository.dart';
 import '../models/route.dart';
@@ -24,12 +25,15 @@ class SqliteRouteRepository implements RouteRepository {
 
     try {
       // Ensure database is initialized
+      logDebug('Initializing SqliteRouteRepository');
       await DatabaseService.database;
       _isInitialized = true;
       if (!_initCompleter.isCompleted) {
         _initCompleter.complete();
       }
-    } catch (e) {
+      logInfo('SqliteRouteRepository initialized');
+    } catch (e, stackTrace) {
+      logError('Failed to initialize SqliteRouteRepository', e, stackTrace);
       if (!_initCompleter.isCompleted) {
         _initCompleter.completeError(e);
       }
@@ -47,7 +51,9 @@ class SqliteRouteRepository implements RouteRepository {
       orderBy: 'createdAt DESC',
     );
 
-    return maps.map((map) => _routeFromMap(map)).toList();
+    final routes = maps.map((map) => _routeFromMap(map)).toList();
+    logDebug('Loaded routes for gym', {'gymId': gymId, 'count': routes.length});
+    return routes;
   }
 
   /// Converts a database map to a Route object.
@@ -86,12 +92,17 @@ class SqliteRouteRepository implements RouteRepository {
       await _initialize();
       // Emit current state immediately
       final routes = await _loadRoutesByGymId(gymId);
+      logInfo('Emitting initial routes for gym', {
+        'gymId': gymId,
+        'count': routes.length,
+      });
       yield routes;
 
       yield* _streamController.stream.asyncMap(
         (_) => _loadRoutesByGymId(gymId),
       );
     } catch (e) {
+      logError('Failed to get routes stream for gym', e);
       yield [];
       yield* _streamController.stream.asyncMap(
         (_) => _loadRoutesByGymId(gymId),
@@ -111,9 +122,19 @@ class SqliteRouteRepository implements RouteRepository {
         limit: 1,
       );
 
-      if (maps.isEmpty) return null;
-      return _routeFromMap(maps.first);
-    } catch (e) {
+      if (maps.isEmpty) {
+        logWarning('Route not found by id', {'routeId': id});
+        return null;
+      }
+      final route = _routeFromMap(maps.first);
+      logDebug('Loaded route by id', {
+        'routeId': id,
+        'routeName': route.name,
+        'gymId': route.gymId,
+      });
+      return route;
+    } catch (e, stackTrace) {
+      logError('Failed to get route by id', e, stackTrace);
       throw Exception('Failed to get route by id: $e');
     }
   }
@@ -124,6 +145,11 @@ class SqliteRouteRepository implements RouteRepository {
     try {
       final db = await DatabaseService.database;
 
+      logInfo('Creating route', {
+        'routeId': route.id,
+        'routeName': route.name,
+        'gymId': route.gymId,
+      });
       await db.insert(
         'routes',
         _routeToMap(route),
@@ -133,14 +159,24 @@ class SqliteRouteRepository implements RouteRepository {
       // Emit updated list
       final routes = await _loadRoutesByGymId(route.gymId);
       _streamController.add(routes);
+      logInfo('Route created and routes stream updated', {
+        'gymId': route.gymId,
+        'routesCount': routes.length,
+      });
     } on DatabaseException catch (e) {
       // Handle unique constraint violation (duplicate ID)
       if (e.toString().contains('UNIQUE constraint') ||
           e.toString().contains('PRIMARY KEY')) {
+        logWarning('Attempted to create duplicate route id', {
+          'routeId': route.id,
+          'routeName': route.name,
+        });
         throw Exception('Route with id ${route.id} already exists');
       }
+      logError('DatabaseException while creating route', e);
       rethrow;
-    } catch (e) {
+    } catch (e, stackTrace) {
+      logError('Failed to create route', e, stackTrace);
       throw Exception('Failed to create route: $e');
     }
   }
@@ -151,6 +187,7 @@ class SqliteRouteRepository implements RouteRepository {
 
     final routeToDelete = await getRouteById(id);
     if (routeToDelete == null) {
+      logWarning('Attempt to delete non-existent route', {'routeId': id});
       throw Exception('Route with id $id not found');
     }
     final gymId = routeToDelete.gymId;
@@ -158,6 +195,7 @@ class SqliteRouteRepository implements RouteRepository {
     try {
       final db = await DatabaseService.database;
 
+      logInfo('Deleting route', {'routeId': id, 'gymId': gymId});
       final deletedCount = await db.delete(
         'routes',
         where: 'id = ?',
@@ -165,16 +203,22 @@ class SqliteRouteRepository implements RouteRepository {
       );
 
       if (deletedCount == 0) {
+        logWarning('Route delete affected 0 rows', {'routeId': id});
         throw Exception('Route with id $id not found');
       }
 
       // Emit updated list
       final routes = await _loadRoutesByGymId(gymId);
       _streamController.add(routes);
+      logInfo('Route deleted and routes stream updated', {
+        'gymId': gymId,
+        'routesCount': routes.length,
+      });
     } catch (e) {
       if (e.toString().contains('not found')) {
         rethrow;
       }
+      logError('Failed to delete route', e);
       throw Exception('Failed to delete route: $e');
     }
   }
@@ -183,9 +227,10 @@ class SqliteRouteRepository implements RouteRepository {
   Future<bool> resetDatabase() async {
     try {
       _streamController.add([]);
-
+      logInfo('Routes database reset (stream cleared)');
       return true;
     } catch (e) {
+      logError('Failed to reset routes database', e);
       return false;
     }
   }

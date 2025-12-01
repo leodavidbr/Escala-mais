@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
@@ -25,18 +26,24 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
 
   @override
   void dispose() {
+    logDebug('CreateRouteScreen disposed', {'gymId': widget.gymId});
     _nameController.dispose();
     super.dispose();
   }
 
   Future<void> _pickImage(bool fromCamera) async {
     final imageService = ref.read(imageServiceProvider);
+    logInfo('Picking image for route', {
+      'gymId': widget.gymId,
+      'fromCamera': fromCamera,
+    });
     final image = await imageService.pickImage(fromCamera: fromCamera);
 
     if (image != null && mounted) {
       setState(() {
         _selectedImage = image;
       });
+      logInfo('Route image selected', {'path': image.path});
     } else if (mounted && image == null) {
       final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(
@@ -89,6 +96,10 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
+      logWarning('Attempted to save route without image', {
+        'gymId': widget.gymId,
+        'routeName': _nameController.text.trim(),
+      });
       return;
     }
 
@@ -98,9 +109,16 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
 
     try {
       final storageService = ref.read(storageServiceProvider);
+      logInfo('Saving route image to storage', {'sourcePath': _selectedImage!.path});
       final savedImagePath = await storageService.saveImage(_selectedImage!);
+      logInfo('Route image saved', {'savedPath': savedImagePath});
 
       final createRouteNotifier = ref.read(createRouteProvider.notifier);
+      logInfo('Creating route from form', {
+        'gymId': widget.gymId,
+        'name': _nameController.text.trim(),
+        'grade': _selectedGrade,
+      });
       await createRouteNotifier.createRoute(
         gymId: widget.gymId,
         name: _nameController.text.trim(),
@@ -112,6 +130,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
         final l10n = AppLocalizations.of(context)!;
         final state = ref.read(createRouteProvider);
         if (state.error != null) {
+          logError('Failed to create route', state.error);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(l10n.error(state.error!)),
@@ -119,6 +138,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
             ),
           );
         } else {
+          logInfo('Route created successfully from form');
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -131,6 +151,7 @@ class _CreateRouteScreenState extends ConsumerState<CreateRouteScreen> {
       }
     } catch (e) {
       if (mounted) {
+        logError('Unexpected error while saving route', e);
         final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
