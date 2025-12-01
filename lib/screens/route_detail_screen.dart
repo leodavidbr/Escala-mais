@@ -1,3 +1,4 @@
+import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -16,6 +17,7 @@ class RouteDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    logInfo('RouteDetailScreen build called', {'routeId': routeId});
     final routeAsync = ref.watch(routeProvider(routeId));
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
@@ -32,6 +34,7 @@ class RouteDetailScreen extends ConsumerWidget {
       body: routeAsync.when(
         data: (route) {
           if (route == null) {
+            logWarning('Route not found in detail screen', {'routeId': routeId});
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -56,6 +59,12 @@ class RouteDetailScreen extends ConsumerWidget {
             );
           }
 
+          logInfo('Showing route details', {
+            'routeId': route.id,
+            'routeName': route.name,
+            'gymId': route.gymId,
+            'grade': route.grade,
+          });
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

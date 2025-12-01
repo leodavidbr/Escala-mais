@@ -1,3 +1,4 @@
+import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:escala_mais/screens/gym_route_list_screen.dart';
 import 'package:escala_mais/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,12 @@ class GymListScreen extends ConsumerWidget {
     AppLocalizations l10n,
   ) async {
     final encoded = Uri.encodeComponent(address);
+    logInfo('Opening maps for gym address', {'encodedAddress': encoded});
 
     final geoUrl = Uri.parse('geo:0,0?q=$encoded');
 
     if (await canLaunchUrl(geoUrl)) {
+      logDebug('Launching geo URL', {'url': geoUrl.toString()});
       await launchUrl(geoUrl, mode: LaunchMode.externalApplication);
       return;
     }
@@ -28,6 +31,7 @@ class GymListScreen extends ConsumerWidget {
     final googleMapsIOS = Uri.parse('comgooglemaps://?q=$encoded');
 
     if (await canLaunchUrl(googleMapsIOS)) {
+      logDebug('Launching iOS Google Maps URL', {'url': googleMapsIOS.toString()});
       await launchUrl(googleMapsIOS, mode: LaunchMode.externalApplication);
       return;
     }
@@ -35,6 +39,7 @@ class GymListScreen extends ConsumerWidget {
     final appleMapsUrl = Uri.parse('http://maps.apple.com/?q=$encoded');
 
     if (await canLaunchUrl(appleMapsUrl)) {
+      logDebug('Launching Apple Maps URL', {'url': appleMapsUrl.toString()});
       await launchUrl(appleMapsUrl, mode: LaunchMode.externalApplication);
       return;
     }
@@ -44,10 +49,12 @@ class GymListScreen extends ConsumerWidget {
     );
 
     if (await canLaunchUrl(webUrl)) {
+      logDebug('Launching web maps URL', {'url': webUrl.toString()});
       await launchUrl(webUrl, mode: LaunchMode.externalApplication);
       return;
     }
 
+    logWarning('No map application available for address', {'encodedAddress': encoded});
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(l10n.mapAppError),
@@ -117,6 +124,7 @@ class GymListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    logInfo('GymListScreen build called');
     final gymsAsync = ref.watch(gymsProvider);
     final l10n = AppLocalizations.of(context)!;
 
@@ -127,6 +135,7 @@ class GymListScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
+              logInfo('Navigating to SettingsScreen');
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SettingsScreen()),
@@ -137,6 +146,7 @@ class GymListScreen extends ConsumerWidget {
       ),
       body: gymsAsync.when(
         data: (gyms) {
+          logInfo('Loaded gyms data', {'count': gyms.length});
           if (gyms.isEmpty) {
             return Center(
               child: Column(
@@ -163,6 +173,7 @@ class GymListScreen extends ConsumerWidget {
               final isLandscape = orientation == Orientation.landscape;
 
               if (isLandscape) {
+                logDebug('Rendering gyms in grid layout', {'count': gyms.length});
                 return GridView.builder(
                   padding: const EdgeInsets.all(16),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -181,6 +192,10 @@ class GymListScreen extends ConsumerWidget {
                       key: Key(gym.id),
                       direction: DismissDirection.endToStart,
                       confirmDismiss: (direction) {
+                        logInfo('Request delete gym (landscape)', {
+                          'gymId': gym.id,
+                          'gymName': gym.name,
+                        });
                         return _showDeleteConfirmation(
                           context,
                           gym.name,
@@ -212,14 +227,24 @@ class GymListScreen extends ConsumerWidget {
                                   : Colors.grey[400],
                             ),
                             onPressed: hasAddress
-                                ? () => _openGoogleMaps(
-                                    context,
-                                    gym.location!,
-                                    l10n,
-                                  )
+                                ? () {
+                                    logInfo('Gym map icon tapped', {
+                                      'gymId': gym.id,
+                                      'gymName': gym.name,
+                                    });
+                                    _openGoogleMaps(
+                                      context,
+                                      gym.location!,
+                                      l10n,
+                                    );
+                                  }
                                 : null,
                           ),
                           onTap: () {
+                            logInfo('Navigating to GymRouteListScreen', {
+                              'gymId': gym.id,
+                              'gymName': gym.name,
+                            });
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -237,6 +262,7 @@ class GymListScreen extends ConsumerWidget {
                 );
               }
 
+              logDebug('Rendering gyms in list layout', {'count': gyms.length});
               return ListView.builder(
                 itemCount: gyms.length,
                 itemBuilder: (context, index) {
@@ -248,6 +274,10 @@ class GymListScreen extends ConsumerWidget {
                     key: Key(gym.id),
                     direction: DismissDirection.endToStart,
                     confirmDismiss: (direction) {
+                      logInfo('Request delete gym (portrait)', {
+                        'gymId': gym.id,
+                        'gymName': gym.name,
+                      });
                       return _showDeleteConfirmation(
                         context,
                         gym.name,
@@ -281,14 +311,24 @@ class GymListScreen extends ConsumerWidget {
                                 : Colors.grey[400],
                           ),
                           onPressed: hasAddress
-                              ? () => _openGoogleMaps(
-                                  context,
-                                  gym.location!,
-                                  l10n,
-                                )
+                              ? () {
+                                  logInfo('Gym map icon tapped', {
+                                    'gymId': gym.id,
+                                    'gymName': gym.name,
+                                  });
+                                  _openGoogleMaps(
+                                    context,
+                                    gym.location!,
+                                    l10n,
+                                  );
+                                }
                               : null,
                         ),
                         onTap: () {
+                          logInfo('Navigating to GymRouteListScreen', {
+                            'gymId': gym.id,
+                            'gymName': gym.name,
+                          });
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -313,6 +353,7 @@ class GymListScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          logInfo('Navigating to CreateGymScreen');
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const CreateGymScreen()),

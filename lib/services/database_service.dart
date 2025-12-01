@@ -1,5 +1,6 @@
 // services/database_service.dart
 
+import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,6 +23,7 @@ class DatabaseService {
 
   /// Deletes the database file and reinitializes it.
   static Future<void> resetDatabaseFile() async {
+    logWarning('Resetting database file');
     await close();
     String path;
     try {
@@ -33,6 +35,7 @@ class DatabaseService {
     }
 
     await deleteDatabase(path);
+    logInfo('Database file deleted', {'path': path});
     _database = await _initDatabase();
   }
 
@@ -43,21 +46,39 @@ class DatabaseService {
     try {
       final directory = await getDatabasesPath();
       path = join(directory, _databaseName);
-    } catch (e) {
+      logDebug('Using databases path for SQLite file', {
+        'directory': directory,
+        'path': path,
+      });
+    } catch (e, stackTrace) {
       // Fallback to application documents directory
       final documentsDirectory = await getApplicationDocumentsDirectory();
       path = join(documentsDirectory.path, _databaseName);
+      logWarning(
+        'Failed to get databases path, falling back to documents directory',
+        e,
+        stackTrace,
+      );
     }
 
-    return await openDatabase(
+    logInfo('Opening SQLite database', {
+      'path': path,
+      'version': _databaseVersion,
+    });
+
+    final db = await openDatabase(
       path,
       version: _databaseVersion,
       onCreate: _onCreate,
     );
+
+    logInfo('SQLite database opened successfully');
+    return db;
   }
 
   /// Creates the database tables.
   static Future<void> _onCreate(Database db, int version) async {
+    logInfo('Creating database schema', {'version': version});
     await db.execute('''
  CREATE TABLE gyms (
  id TEXT PRIMARY KEY,
@@ -135,6 +156,12 @@ class DatabaseService {
       });
     }
     await batch.commit(noResult: true);
+
+    logInfo('Seeded initial data', {
+      'gymId': defaultGym.id,
+      'gymName': defaultGym.name,
+      'routesCount': mockRoutes.length,
+    });
   }
 
   /// Closes the database connection.
