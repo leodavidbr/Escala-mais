@@ -3,32 +3,32 @@ import 'package:http/http.dart' as http;
 
 class CepAddress {
   final String cep;
-  final String street;
-  final String neighborhood;
-  final String locality;
+  final String logradouro;
+  final String bairro;
+  final String localidade;
   final String uf;
 
   CepAddress({
     required this.cep,
-    required this.street,
-    required this.neighborhood,
-    required this.locality,
+    required this.logradouro,
+    required this.bairro,
+    required this.localidade,
     required this.uf,
   });
 
   factory CepAddress.fromJson(Map<String, dynamic> json) {
     return CepAddress(
       cep: json['cep'] ?? '',
-      street: json['street'] ?? '',
-      neighborhood: json['neighborhood'] ?? '',
-      locality: json['locality'] ?? '',
+      logradouro: json['logradouro'] ?? '',
+      bairro: json['bairro'] ?? '',
+      localidade: json['localidade'] ?? '',
       uf: json['uf'] ?? '',
     );
   }
 
   @override
   String toString() {
-    return '$street, $neighborhood, $locality - $uf';
+    return '$logradouro, $bairro, $localidade - $uf';
   }
 }
 

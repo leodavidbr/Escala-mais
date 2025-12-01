@@ -158,71 +158,151 @@ class GymListScreen extends ConsumerWidget {
             );
           }
 
-          return ListView.builder(
-            itemCount: gyms.length,
-            itemBuilder: (context, index) {
-              final gym = gyms[index];
-              final hasAddress =
-                  gym.location != null && gym.location!.isNotEmpty;
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              final isLandscape = orientation == Orientation.landscape;
 
-              return Dismissible(
-                key: Key(gym.id),
-                direction: DismissDirection.endToStart,
-                confirmDismiss: (direction) async {
-                  return await _showDeleteConfirmation(
-                    context,
-                    gym.name,
-                    gym.id,
-                    ref,
-                  );
-                },
-                background: Container(
-                  alignment: Alignment.centerRight,
-                  padding: const EdgeInsets.only(right: 20),
-                  color: Theme.of(context).colorScheme.error,
-                  child: Icon(
-                    Icons.delete,
-                    color: Theme.of(context).colorScheme.onError,
+              if (isLandscape) {
+                return GridView.builder(
+                  padding: const EdgeInsets.all(16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 2.8,
                   ),
-                ),
-                child: Card(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  child: ListTile(
-                    leading: const Icon(Icons.fitness_center),
-                    title: Text(gym.name),
-                    subtitle: Text(gym.location ?? l10n.noLocationProvided),
+                  itemCount: gyms.length,
+                  itemBuilder: (context, index) {
+                    final gym = gyms[index];
+                    final hasAddress =
+                        gym.location != null && gym.location!.isNotEmpty;
 
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.map,
-                        color: hasAddress
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.grey[400],
-                      ),
-                      onPressed: hasAddress
-                          ? () => _openGoogleMaps(context, gym.location!, l10n)
-                          : null,
-                      tooltip: hasAddress
-                          ? l10n.openInMaps
-                          : l10n.noLocationProvided,
-                    ),
-
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => GymRouteListScreen(
-                            gymId: gym.id,
-                            gymName: gym.name,
-                          ),
+                    return Dismissible(
+                      key: Key(gym.id),
+                      direction: DismissDirection.endToStart,
+                      confirmDismiss: (direction) {
+                        return _showDeleteConfirmation(
+                          context,
+                          gym.name,
+                          gym.id,
+                          ref,
+                        );
+                      },
+                      background: Container(
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20),
+                        color: Theme.of(context).colorScheme.error,
+                        child: Icon(
+                          Icons.delete,
+                          color: Theme.of(context).colorScheme.onError,
                         ),
+                      ),
+                      child: Card(
+                        child: ListTile(
+                          leading: const Icon(Icons.fitness_center),
+                          title: Text(gym.name),
+                          subtitle: Text(
+                            gym.location ?? l10n.noLocationProvided,
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(
+                              Icons.map,
+                              color: hasAddress
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Colors.grey[400],
+                            ),
+                            onPressed: hasAddress
+                                ? () => _openGoogleMaps(
+                                    context,
+                                    gym.location!,
+                                    l10n,
+                                  )
+                                : null,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => GymRouteListScreen(
+                                  gymId: gym.id,
+                                  gymName: gym.name,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }
+
+              return ListView.builder(
+                itemCount: gyms.length,
+                itemBuilder: (context, index) {
+                  final gym = gyms[index];
+                  final hasAddress =
+                      gym.location != null && gym.location!.isNotEmpty;
+
+                  return Dismissible(
+                    key: Key(gym.id),
+                    direction: DismissDirection.endToStart,
+                    confirmDismiss: (direction) {
+                      return _showDeleteConfirmation(
+                        context,
+                        gym.name,
+                        gym.id,
+                        ref,
                       );
                     },
-                  ),
-                ),
+                    background: Container(
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(right: 20),
+                      color: Theme.of(context).colorScheme.error,
+                      child: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).colorScheme.onError,
+                      ),
+                    ),
+                    child: Card(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: ListTile(
+                        leading: const Icon(Icons.fitness_center),
+                        title: Text(gym.name),
+                        subtitle: Text(gym.location ?? l10n.noLocationProvided),
+                        trailing: IconButton(
+                          icon: Icon(
+                            Icons.map,
+                            color: hasAddress
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.grey[400],
+                          ),
+                          onPressed: hasAddress
+                              ? () => _openGoogleMaps(
+                                  context,
+                                  gym.location!,
+                                  l10n,
+                                )
+                              : null,
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => GymRouteListScreen(
+                                gymId: gym.id,
+                                gymName: gym.name,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                },
               );
             },
           );

@@ -1,3 +1,4 @@
+import 'package:escala_mais/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
@@ -56,9 +57,9 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
       });
 
       if (result != null) {
-        _streetController.text = result.street;
-        _neighborhoodController.text = result.neighborhood;
-        _cityController.text = result.locality;
+        _streetController.text = result.logradouro;
+        _neighborhoodController.text = result.bairro;
+        _cityController.text = result.localidade;
         _stateController.text = result.uf;
 
         FocusScope.of(context).requestFocus(FocusNode());
@@ -66,7 +67,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.cepNotFound),
-            backgroundColor: Colors.orange,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
         );
       }
@@ -96,7 +97,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(l10n.pleaseCompleteAddress),
-          backgroundColor: Colors.red,
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
       return;
@@ -115,7 +116,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.error(state.error!)),
-            backgroundColor: Colors.red,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
       } else {
@@ -123,7 +124,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.gymCreatedSuccessfully),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).colorScheme.success,
           ),
         );
         createGymNotifier.reset();
