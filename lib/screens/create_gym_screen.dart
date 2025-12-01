@@ -57,9 +57,9 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
       });
 
       if (result != null) {
-        _streetController.text = result.street;
-        _neighborhoodController.text = result.neighborhood;
-        _cityController.text = result.locality;
+        _streetController.text = result.logradouro;
+        _neighborhoodController.text = result.bairro;
+        _cityController.text = result.localidade;
         _stateController.text = result.uf;
 
         FocusScope.of(context).requestFocus(FocusNode());
