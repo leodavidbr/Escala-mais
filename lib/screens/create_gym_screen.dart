@@ -1,3 +1,4 @@
+import 'package:escala_mais/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
@@ -66,7 +67,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.cepNotFound),
-            backgroundColor: Colors.orange,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
           ),
         );
       }
@@ -96,7 +97,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(l10n.pleaseCompleteAddress),
-          backgroundColor: Colors.red,
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
       return;
@@ -115,7 +116,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.error(state.error!)),
-            backgroundColor: Colors.red,
+            backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
       } else {
@@ -123,7 +124,7 @@ class _CreateGymScreenState extends ConsumerState<CreateGymScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.gymCreatedSuccessfully),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).colorScheme.success,
           ),
         );
         createGymNotifier.reset();
