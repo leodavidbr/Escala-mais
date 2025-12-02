@@ -8,18 +8,16 @@ import 'package:logger/logger.dart';
 /// - info: high-level app flow (screen opened, request started/completed).
 /// - warning: unexpected but handled situations (e.g., retries, fallbacks).
 /// - error: failures that prevent an operation from completing.
-/// - wtf: serious, unexpected failures or invariants being broken.
+/// - fatal: serious, unexpected failures or invariants being broken (antigo wtf).
 ///
 /// Environment behaviour:
 /// - In debug/profile (`kReleaseMode == false`), logs are pretty-printed with
-///   colors, timestamps and stack traces.
+///   colors, timestamps and stack traces.
 /// - In release (`kReleaseMode == true`), logs use a simple printer to
-///   minimise overhead while still emitting details to the console.
+///   minimise overhead while still emitting details to the console.
 Logger _buildLogger() {
   if (kReleaseMode) {
-    return Logger(
-      printer: SimplePrinter(),
-    );
+    return Logger(printer: SimplePrinter());
   }
 
   return Logger(
@@ -29,8 +27,9 @@ Logger _buildLogger() {
       lineLength: 120,
       colors: true,
       printEmojis: true,
-      printTime: true,
+      dateTimeFormat: DateTimeFormat.dateAndTime,
     ),
+    level: Level.fatal,
   );
 }
 
@@ -52,8 +51,6 @@ void logError(String message, [dynamic error, StackTrace? stackTrace]) {
   appLogger.e(message, error: error, stackTrace: stackTrace);
 }
 
-void logWtf(String message, [dynamic error, StackTrace? stackTrace]) {
-  appLogger.wtf(message, error: error, stackTrace: stackTrace);
+void logFatal(String message, [dynamic error, StackTrace? stackTrace]) {
+  appLogger.f(message, error: error, stackTrace: stackTrace);
 }
-
-

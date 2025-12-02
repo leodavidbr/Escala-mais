@@ -17,44 +17,48 @@ class GymListScreen extends ConsumerWidget {
     String address,
     AppLocalizations l10n,
   ) async {
-    final encoded = Uri.encodeComponent(address);
-    logInfo('Opening maps for gym address', {'encodedAddress': encoded});
+    final encodedAddress = Uri.encodeComponent(address);
+    logInfo('Opening maps for gym address', {'encodedAddress': encodedAddress});
 
-    final geoUrl = Uri.parse('geo:0,0?q=$encoded');
+    final geoUrl = Uri.parse('geo:0,0?q=$encodedAddress');
 
-    if (await canLaunchUrl(geoUrl)) {
+    final canLaunchGeo = await canLaunchUrl(geoUrl);
+    if (!context.mounted) return;
+
+    if (canLaunchGeo) {
       logDebug('Launching geo URL', {'url': geoUrl.toString()});
       await launchUrl(geoUrl, mode: LaunchMode.externalApplication);
       return;
     }
 
-    final googleMapsIOS = Uri.parse('comgooglemaps://?q=$encoded');
+    final googleMapsUrl = Uri.parse(
+      'http://googleusercontent.com/maps.google.com/q=$encodedAddress',
+    );
 
-    if (await canLaunchUrl(googleMapsIOS)) {
-      logDebug('Launching iOS Google Maps URL', {'url': googleMapsIOS.toString()});
-      await launchUrl(googleMapsIOS, mode: LaunchMode.externalApplication);
+    final canLaunchGoogle = await canLaunchUrl(googleMapsUrl);
+    if (!context.mounted) return;
+
+    if (canLaunchGoogle) {
+      logDebug('Launching Google Maps URL', {'url': googleMapsUrl.toString()});
+      await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication);
       return;
     }
 
-    final appleMapsUrl = Uri.parse('http://maps.apple.com/?q=$encoded');
+    final appleMapsUrl = Uri.parse('http://maps.apple.com/?q=$encodedAddress');
 
-    if (await canLaunchUrl(appleMapsUrl)) {
+    final canLaunchApple = await canLaunchUrl(appleMapsUrl);
+    if (!context.mounted) return;
+
+    if (canLaunchApple) {
       logDebug('Launching Apple Maps URL', {'url': appleMapsUrl.toString()});
       await launchUrl(appleMapsUrl, mode: LaunchMode.externalApplication);
       return;
     }
 
-    final webUrl = Uri.parse(
-      'https://www.google.com/maps/search/?api=1&query=$encoded',
-    );
+    logWarning('No map application available for address', {
+      'encodedAddress': encodedAddress,
+    });
 
-    if (await canLaunchUrl(webUrl)) {
-      logDebug('Launching web maps URL', {'url': webUrl.toString()});
-      await launchUrl(webUrl, mode: LaunchMode.externalApplication);
-      return;
-    }
-
-    logWarning('No map application available for address', {'encodedAddress': encoded});
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(l10n.mapAppError),
@@ -70,6 +74,7 @@ class GymListScreen extends ConsumerWidget {
     WidgetRef ref,
   ) async {
     final l10n = AppLocalizations.of(context)!;
+
     final result = await showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
@@ -92,6 +97,7 @@ class GymListScreen extends ConsumerWidget {
         );
       },
     );
+    if (!context.mounted) return false;
 
     if (result == true) {
       try {
@@ -173,7 +179,9 @@ class GymListScreen extends ConsumerWidget {
               final isLandscape = orientation == Orientation.landscape;
 
               if (isLandscape) {
-                logDebug('Rendering gyms in grid layout', {'count': gyms.length});
+                logDebug('Rendering gyms in grid layout', {
+                  'count': gyms.length,
+                });
                 return GridView.builder(
                   padding: const EdgeInsets.all(16),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -316,11 +324,7 @@ class GymListScreen extends ConsumerWidget {
                                     'gymId': gym.id,
                                     'gymName': gym.name,
                                   });
-                                  _openGoogleMaps(
-                                    context,
-                                    gym.location!,
-                                    l10n,
-                                  );
+                                  _openGoogleMaps(context, gym.location!, l10n);
                                 }
                               : null,
                         ),

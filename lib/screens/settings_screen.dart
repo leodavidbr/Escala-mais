@@ -1,7 +1,7 @@
+import 'package:escala_mais/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
-import '../theme/app_theme.dart';
 import '../providers/route_providers.dart';
 import '../theme/theme_mode_notifier.dart';
 import '../theme/locale_notifier.dart';
@@ -30,6 +30,7 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final themeMode = ref.watch(themeModeProvider);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings)),
@@ -62,10 +63,7 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             title: Text(l10n.resetDatabaseTitle),
             subtitle: Text(l10n.resetDatabaseSubtitle),
-            leading: Icon(
-              Icons.delete_forever,
-              color: Theme.of(context).colorScheme.error,
-            ),
+            leading: Icon(Icons.delete_forever, color: theme.colorScheme.error),
             onTap: () => _showResetDialog(context, ref, l10n),
           ),
           const Divider(),
@@ -87,42 +85,54 @@ class SettingsScreen extends ConsumerWidget {
     WidgetRef ref,
     AppLocalizations l10n,
   ) {
-    final currentLocale = ref.read(localeProvider);
+    final currentLocale = ref.watch(localeProvider);
+
+    final List<Map<String, dynamic>> localeOptions = [
+      {
+        'title': l10n.systemDefault,
+        'locale': null,
+        'setter': () => ref.read(localeProvider.notifier).setSystemDefault(),
+      },
+      {
+        'title': l10n.english,
+        'locale': const Locale('en'),
+        'setter': () => ref.read(localeProvider.notifier).setEnglish(),
+      },
+      {
+        'title': l10n.portuguese,
+        'locale': const Locale('pt', 'BR'),
+        'setter': () => ref.read(localeProvider.notifier).setPortuguese(),
+      },
+    ];
+
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(l10n.selectLanguage),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile<Locale?>(
-              title: Text(l10n.systemDefault),
-              value: null,
-              groupValue: currentLocale,
-              onChanged: (value) {
-                ref.read(localeProvider.notifier).setSystemDefault();
+          children: localeOptions.map((option) {
+            final locale = option['locale'] as Locale?;
+            final title = option['title'] as String;
+            final isSelected = currentLocale == locale;
+
+            return ListTile(
+              leading: Icon(
+                isSelected
+                    ? Icons.radio_button_checked
+                    : Icons.radio_button_unchecked,
+                color: isSelected
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.outline,
+              ),
+              title: Text(title),
+              selected: isSelected,
+              onTap: () {
+                (option['setter'] as Function).call();
                 Navigator.of(ctx).pop();
               },
-            ),
-            RadioListTile<Locale?>(
-              title: Text(l10n.english),
-              value: const Locale('en'),
-              groupValue: currentLocale,
-              onChanged: (value) {
-                ref.read(localeProvider.notifier).setEnglish();
-                Navigator.of(ctx).pop();
-              },
-            ),
-            RadioListTile<Locale?>(
-              title: Text(l10n.portuguese),
-              value: const Locale('pt', 'BR'),
-              groupValue: currentLocale,
-              onChanged: (value) {
-                ref.read(localeProvider.notifier).setPortuguese();
-                Navigator.of(ctx).pop();
-              },
-            ),
-          ],
+            );
+          }).toList(),
         ),
       ),
     );
@@ -149,6 +159,7 @@ class SettingsScreen extends ConsumerWidget {
     WidgetRef ref,
     AppLocalizations l10n,
   ) {
+    final theme = Theme.of(context);
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -165,8 +176,8 @@ class SettingsScreen extends ConsumerWidget {
               await _resetData(context, ref, l10n);
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-              foregroundColor: Theme.of(context).colorScheme.onError,
+              backgroundColor: theme.colorScheme.error,
+              foregroundColor: theme.colorScheme.onError,
             ),
             child: Text(l10n.resetButton),
           ),
@@ -181,6 +192,8 @@ class SettingsScreen extends ConsumerWidget {
     AppLocalizations l10n,
   ) async {
     final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final theme = Theme.of(context);
+
     final gymResetSuccess = await ref
         .read(gymRepositoryProvider)
         .resetDatabase();
@@ -192,14 +205,14 @@ class SettingsScreen extends ConsumerWidget {
       scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text(l10n.resetSuccess),
-          backgroundColor: Theme.of(context).colorScheme.success,
+          backgroundColor: theme.colorScheme.success,
         ),
       );
     } else {
       scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text(l10n.resetFailure),
-          backgroundColor: Theme.of(context).colorScheme.error,
+          backgroundColor: theme.colorScheme.error,
         ),
       );
     }
