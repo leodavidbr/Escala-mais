@@ -227,19 +227,20 @@ class GymListScreen extends ConsumerWidget {
                           subtitle: Text(
                             gym.location ?? l10n.noLocationProvided,
                           ),
-                          trailing: IconButton(
-                            icon: Icon(
-                              Icons.map,
-                              color: hasAddress
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.grey[400],
-                            ),
-                            onPressed: hasAddress
-                                ? () {
-                                    logInfo('Gym map icon tapped', {
-                                      'gymId': gym.id,
-                                      'gymName': gym.name,
-                                    });
+                          trailing: Builder(
+                            builder: (context) => IconButton(
+                              icon: Icon(
+                                Icons.map,
+                                color: hasAddress
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.grey[400],
+                              ),
+                              onPressed: hasAddress
+                                  ? () {
+                                      logInfo('Gym map icon tapped', {
+                                        'gymId': gym.id,
+                                        'gymName': gym.name,
+                                      });
                                     _openGoogleMaps(
                                       context,
                                       gym.location!,
@@ -247,6 +248,7 @@ class GymListScreen extends ConsumerWidget {
                                     );
                                   }
                                 : null,
+                            ),
                           ),
                           onTap: () {
                             logInfo('Navigating to GymRouteListScreen', {
@@ -311,22 +313,24 @@ class GymListScreen extends ConsumerWidget {
                         leading: const Icon(Icons.fitness_center),
                         title: Text(gym.name),
                         subtitle: Text(gym.location ?? l10n.noLocationProvided),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.map,
-                            color: hasAddress
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.grey[400],
-                          ),
-                          onPressed: hasAddress
-                              ? () {
-                                  logInfo('Gym map icon tapped', {
-                                    'gymId': gym.id,
-                                    'gymName': gym.name,
-                                  });
+                        trailing: Builder(
+                          builder: (context) => IconButton(
+                            icon: Icon(
+                              Icons.map,
+                              color: hasAddress
+                                  ? Theme.of(context).colorScheme.primary
+                                  : Colors.grey[400],
+                            ),
+                            onPressed: hasAddress
+                                ? () {
+                                    logInfo('Gym map icon tapped', {
+                                      'gymId': gym.id,
+                                      'gymName': gym.name,
+                                    });
                                   _openGoogleMaps(context, gym.location!, l10n);
                                 }
-                              : null,
+                                : null,
+                          ),
                         ),
                         onTap: () {
                           logInfo('Navigating to GymRouteListScreen', {
