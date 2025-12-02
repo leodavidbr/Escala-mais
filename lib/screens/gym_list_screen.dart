@@ -1,6 +1,7 @@
 import 'package:escala_mais/core/logging/app_logger.dart';
 import 'package:escala_mais/screens/gym_route_list_screen.dart';
 import 'package:escala_mais/screens/settings_screen.dart';
+import 'package:escala_mais/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../l10n/app_localizations.dart';
@@ -108,7 +109,7 @@ class GymListScreen extends ConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(l10n.gymDeletedSuccessfully),
-              backgroundColor: Theme.of(context).colorScheme.primary,
+              backgroundColor: Theme.of(context).colorScheme.success,
             ),
           );
         }
